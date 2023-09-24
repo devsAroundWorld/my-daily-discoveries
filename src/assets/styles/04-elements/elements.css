@@ -1,0 +1,7 @@
+main {
+    font-family: 'Poppins';
+    font-weight: 200;
+    font-style: normal;
+    color: var(--accent-color);
+    font-size: 36px;
+}
