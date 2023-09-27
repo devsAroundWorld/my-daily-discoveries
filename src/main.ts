@@ -5,6 +5,9 @@ import { createPinia } from 'pinia'
 import { plugin, defaultConfig } from '@formkit/vue'
 import '@formkit/themes/genesis'
 
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import App from './App.vue'
 import router from './router'
 
@@ -15,4 +18,5 @@ app.use(router)
 app.use(plugin, defaultConfig({
   theme: 'genesis'
 }))
+app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')
