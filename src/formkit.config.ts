@@ -1,15 +1,17 @@
 import { defaultConfig } from '@formkit/vue'
-import { createFloatingLabelsPlugin } from '@formkit/addons'
 import '@formkit/themes/genesis'
-import '@formkit/addons/css/floatingLabels'
 
 const config = defaultConfig({
   theme: 'genesis',
-  plugins: [
-    createFloatingLabelsPlugin({
-      useAsDefault: true, // defaults to false
-    }),
-  ],
+  config: {
+    classes: {
+      outer: 'formkit-mdd-outer',
+      wrapper: 'formkit-mdd-wrapper',
+      inner: 'formkit-mdd-inner',
+      input: 'formkit-mdd-input',
+      label: 'formkit-mdd-label'
+    }
+  }
 })
 
 export default config

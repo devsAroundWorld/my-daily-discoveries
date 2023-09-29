@@ -2,4 +2,5 @@
 @import './01-settings/settings.css';
 @import './03-generic/reset.css';
 @import './04-elements/elements.css';
+@import './06-components/components.css';
 @import './07-utils/utils.css';
