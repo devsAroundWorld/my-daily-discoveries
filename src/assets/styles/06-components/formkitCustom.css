@@ -2,8 +2,9 @@
   --fk-color-border-focus: var(--pastel-indigo);
   --fk-font-family: 'Poppins', sans-serif;
   --fk-max-width-input: 100%;
+  --fk-bg-submit: var(--pastel-indigo);
 }
 
-[data-floating-label='true'] .formkit-label {
+.formkit-mdd-label {
   color: var(--gentle-purple);
 }
