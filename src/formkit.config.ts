@@ -1,6 +1,5 @@
 import { defaultConfig } from '@formkit/vue'
 import '@formkit/themes/genesis'
-import '@formkit/addons/css/floatingLabels'
 
 const config = defaultConfig({
   theme: 'genesis',

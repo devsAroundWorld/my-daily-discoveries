@@ -8,3 +8,7 @@
 .formkit-mdd-label {
   color: var(--gentle-purple);
 }
+
+.formkit-mdd-inner {
+  background: var(--light-lavender);
+}
