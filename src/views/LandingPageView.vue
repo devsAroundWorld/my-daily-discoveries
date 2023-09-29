@@ -6,3 +6,6 @@
     Home View
   </main>
 </template>
+
+<style>
+</style>
