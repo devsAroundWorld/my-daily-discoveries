@@ -2,6 +2,7 @@
   "recommendations": [
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
+    "sibiraj-s.vscode-scss-formatter",
     "dbaeumer.vscode-eslint"
   ]
 }
