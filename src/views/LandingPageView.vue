@@ -2,10 +2,8 @@
 </script>
 
 <template>
-  <main>
-    Home View
-  </main>
+  <main />
 </template>
 
-<style>
+<style scoped>
 </style>
