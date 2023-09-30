@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import { computed } from 'vue'
+
+  const props = withDefaults(defineProps<{
+    height: string
+  }>(), {
+    height: 'auto'
+  })
+
+  const getHeightCard = computed(() => props.height)
+</script>
 
 <template>
   <div class="bg-form-principal">
@@ -17,5 +27,9 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  height: v-bind(getHeightCard);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
