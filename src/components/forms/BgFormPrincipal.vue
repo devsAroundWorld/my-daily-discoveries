@@ -2,12 +2,12 @@
   import { computed } from 'vue'
 
   const props = withDefaults(defineProps<{
-    height: string
+    minHeight: string
   }>(), {
-    height: 'auto'
+    minHeight: 'auto'
   })
 
-  const getHeightCard = computed(() => props.height)
+  const getHeightCard = computed(() => props.minHeight)
 </script>
 
 <template>
@@ -27,7 +27,8 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  height: v-bind(getHeightCard);
+  height: auto;
+  min-height: v-bind(getHeightCard);
   display: flex;
   flex-direction: column;
   gap: 1rem;

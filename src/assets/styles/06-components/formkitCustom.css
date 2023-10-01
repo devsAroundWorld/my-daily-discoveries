@@ -12,3 +12,8 @@
 .formkit-mdd-inner {
   background: var(--light-lavender);
 }
+
+[data-type="button"] .formkit-input,
+[data-type="submit"] .formkit-input {
+  width: 100%;
+}
