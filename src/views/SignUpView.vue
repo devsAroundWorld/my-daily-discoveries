@@ -2,7 +2,7 @@
   import BgFormPrincipal from '@/components/forms/BgFormPrincipal.vue'
   import CardForm from '@/components/forms/CardForm.vue'
   import useInputPassword from '@/composables/useInputPassword'
-  import useRegisterUser from '../composables/firebase/useRegisterUser'
+  import useRegisterUser from '@/composables/auth/useRegisterUser'
 
   const { handleToggleIconPass } = useInputPassword()
   const { handleCreateUser } = useRegisterUser()
@@ -22,7 +22,8 @@
       </h1>
       <CardForm>
         <FormKit
-          v-slot="{ state: { valid }, value }"
+          id="registerForm"
+          v-slot="{ state: { valid } }"
           type="form"
           :actions="false"
           incomplete-message="Todos los campos son requeridos, completa los campos."
@@ -65,7 +66,6 @@
               label="Crear cuenta"
               :disabled="!valid"
             />
-            {{ value }}
           </div>
         </FormKit>
         <p class="signup-view__have-account">
@@ -80,37 +80,5 @@
 </template>
 
 <style lang="css" scoped>
-.signup-view {
-  min-height: calc(100vh - 1rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & img {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-  }
-  & .signup-title {
-    color: #ffffff;
-    font-weight: normal;
-    font-size: 2rem;
-    text-align: center;
-    & span {
-      font-weight: 600;
-      color: var(--pastel-indigo);
-    }
-  }
-  & .signup-view__have-account {
-    text-align: right;
-    color: var(--pastel-indigo);
-    font-weight: normal;
-    & a {
-      font-weight: 500;
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-}
+@import '@/assets/styles/05-objects/signUpLayout.css';
 </style>
