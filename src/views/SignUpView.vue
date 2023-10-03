@@ -13,7 +13,7 @@
     <BgFormPrincipal min-height="700px">
       <img
         src="@/assets/img/LogoMDD.png"
-        alt="MY DAILY DISCOVERIES LGOO"
+        alt="MY DAILY DISCOVERIES LOGO"
       >
 
       <h1 class="signup-title">
