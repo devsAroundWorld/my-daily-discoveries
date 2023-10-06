@@ -17,5 +17,9 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>

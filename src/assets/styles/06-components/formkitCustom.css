@@ -19,3 +19,8 @@ button.formkit-input {
   --fk-bg-button-hover: var(--soft-blue);
   border: 2px solid var(--pale-pink) !important;
 }
+
+[data-type="button"] .formkit-input,
+[data-type="submit"] .formkit-input {
+  width: 100%;
+}
