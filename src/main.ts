@@ -5,6 +5,7 @@ import { plugin } from '@formkit/vue'
 import formKitConfig from '@/plugins/formkit.config'
 import App from './App.vue'
 import router from './router'
+import Vue3Lottie from 'vue3-lottie'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@/assets/styles/index.css'
 
@@ -15,6 +16,8 @@ app.use(createPinia())
 app.use(router)
 
 app.use(plugin, formKitConfig)
+
+app.use(Vue3Lottie)
 
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 

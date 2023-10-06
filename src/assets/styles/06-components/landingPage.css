@@ -1,0 +1,242 @@
+body {
+  padding: 0px;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+h2 {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 3px;
+  text-align: center;
+  text-shadow: 2px 2px var(--december-sky);
+}
+
+h3 {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 3px;
+  text-align: center;
+  text-shadow: 2px 2px var(--december-sky);
+}
+
+.landing-header {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  background: rgb(115, 113, 252);
+  background: linear-gradient(180deg, rgba(115, 113, 252, 1) 0%, rgba(255, 255, 255, 0) 100%);
+
+  .landing-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & img {
+      max-width: 65px;
+      height: auto;
+    }
+  }
+
+  .landing-nav {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+
+    & a {
+      font-weight: normal;
+      margin-left: 40px;
+      padding: 4px;
+    }
+
+    & a.active {
+      border-bottom: 2px solid white;
+      transition: 0.5s ease-out;
+    }
+  }
+}
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3em;
+
+  .main-text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & p {
+      color: var(--white);
+      font-weight: normal;
+      font-style: italic;
+      text-align: center;
+      inline-size: 80%;
+      overflow-wrap: break-word;
+      margin-bottom: 3%;
+    }
+  }
+
+  .main-animation {
+    width: 50%;
+    filter: drop-shadow(-16px -6px 12px #5c595f57);
+  }
+}
+
+.landing-stats {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 3em;
+  color: var(--white);
+  text-align: center;
+
+  .stats-graph {
+    width: 40%;
+  }
+
+  .stats-text {
+    font-weight: normal;
+    overflow-wrap: break-word;
+    width: 60%;
+  }
+}
+
+.landing-about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: normal;
+  color: white;
+  padding: 3em;
+
+  .about-text {
+    margin-bottom: 1em;
+
+    & p {
+      margin-top: 1em;
+    }
+
+    & span {
+      font-weight: 600;
+    }
+  }
+
+  .about-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 5%;
+
+    .about-icons_container {
+      width: 300px;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      background-color: var(--gentle-purple);
+      border-radius: 16px;
+      padding: 20px;
+
+      & img {
+        width: 150px;
+        filter: drop-shadow(-16px -6px 12px #5c595f57);
+      }
+
+      & span {
+        font-weight: bold;
+        font-size: 20px;
+        text-shadow: 2px 2px var(--december-sky);
+        margin: 10px;
+      }
+
+    }
+  }
+}
+
+.landing-footer {
+  height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3em;
+  border-radius: 30px 30px 0px 0px;
+  background-color: var(--pale-pink);
+  font-weight: normal;
+  margin: 0px 12px;
+  color: var(--gentle-purple);
+}
+
+.reveal {
+  position: relative;
+  transform: translateY(120);
+  opacity: 0;
+  transition: 2s all ease;
+}
+
+.reveal.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+
+  h2 {
+    font-size: 32px;
+  }
+
+  .landing-header {
+    flex-direction: column;
+
+    .landing-nav {
+      font-size: 12px;
+      margin-top: 5px;
+      text-align: center;
+
+      & a {
+        margin: 10px;
+        padding: 3px;
+      }
+    }
+  }
+
+  .main-container {
+    flex-direction: column-reverse;
+    padding: 0px;
+
+    .main-text {
+      width: 100%;
+    }
+
+    .main-animation {
+      width: 80%;
+    }
+  }
+
+  .landing-stats {
+    flex-direction: column;
+    padding: 0px;
+  }
+
+  .about-icons {
+    flex-direction: column;
+  }
+}

@@ -12,3 +12,10 @@
 .formkit-mdd-inner {
   background: var(--light-lavender);
 }
+
+button.formkit-input {
+  --fk-bg-button: var(--gentle-purple);
+  --fk-color-button: var(--white);
+  --fk-bg-button-hover: var(--soft-blue);
+  border: 2px solid var(--pale-pink) !important;
+}
