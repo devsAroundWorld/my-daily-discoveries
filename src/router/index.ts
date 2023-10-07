@@ -27,6 +27,14 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: import('../views/NotFoundView.vue'),
+    meta: {
+      requiresAuth: false
+    }
+  },
 ]
 
 const router = createRouter({
@@ -38,8 +46,8 @@ router.beforeEach(async (to, from, next) => {
   const store = useAuthStore()
   const user = await store.currentUser() as UserDataInterface
   if (to.meta.requiresAuth && !user?.uid  && !store.isLoggedIn) {
-    //TODO: Mandar un toast notifucation de necesitas autenticarte
-    console.log('Necesitas auntenticarte')
+    //TODO: Mandar un toast notification de "necesitas iniciar sesion"
+    console.log('Necesitas iniciar sesión')
     next({ name: 'home' })
   } else {
     next()
