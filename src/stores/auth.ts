@@ -7,7 +7,6 @@ import type { UserRegisterFieldInterface, UserDataInterface } from '@/models/Use
 export const useAuthStore = defineStore('auth', () => {
   const auth = getAuth()
   const userData = ref<UserDataInterface | null>()
-  const isLoggedIn = ref(false)
   const loadingSession = ref(false)
 
   function currentUser () {
@@ -24,10 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
               photo: photoURL,
               phone: phoneNumber,
             }
-            isLoggedIn.value = true
           } else {
             userData.value = null
-            isLoggedIn.value = false
           }
           onSuscribe()
           resolve(user)
@@ -65,7 +62,6 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     // State
     userData,
-    isLoggedIn,
     loadingSession,
     // Getters
     // Actions
