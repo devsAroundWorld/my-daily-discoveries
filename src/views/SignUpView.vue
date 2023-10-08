@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import FormLayout from '@/layouts/FormLayout.vue'
   import useInputPassword from '@/composables/useInputPassword'
-  import useRegisterUser from '@/composables/auth/useRegisterUser'
+  import { useAuthStore } from '@/stores/auth'
 
   const { handleToggleIconPass } = useInputPassword()
-  const { handleCreateUser } = useRegisterUser()
+  const { registerUser } = useAuthStore()
 </script>
 
 <template>
@@ -27,7 +27,7 @@
         type="form"
         :actions="false"
         incomplete-message="Todos los campos son requeridos, completa los campos."
-        @submit="handleCreateUser"
+        @submit="registerUser"
       >
         <div class="signup-card">
           <FormKit

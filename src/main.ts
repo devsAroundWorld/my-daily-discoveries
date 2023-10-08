@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { firebaseApp } from '@/plugins/firebase.config'
+import '@/plugins/firebase.config'
 import { plugin } from '@formkit/vue'
 import formKitConfig from '@/plugins/formkit.config'
 import App from './App.vue'
@@ -11,7 +11,9 @@ import '@/assets/styles/index.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+
+app.use(pinia)
 
 app.use(router)
 
@@ -24,5 +26,4 @@ app.component('FontAwesomeIcon', FontAwesomeIcon)
 app.mount('#app')
 
 // TODO: Solo apra contrastar de que estamos conectados se dejará el console, al final ELIMINARLO!
-console.log({firebaseApp})
-console.log(import.meta.env.MODE)
+console.log(`Estas en modo: ${import.meta.env.MODE}`)

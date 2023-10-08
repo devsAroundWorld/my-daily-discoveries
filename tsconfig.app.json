@@ -4,8 +4,18 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
+    "src/**/.ts",
     "src/**/**/*.json",
     "src/mockup-data/*.json"
+  ],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/.ts"
   ],
   "exclude": [
     "src/**/__tests__/*"
