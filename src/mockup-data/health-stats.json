@@ -1,0 +1,40 @@
+{
+  "países": [
+    {
+      "nombre": "Argentina",
+      "población": 45195777,
+      "problemas_salud_mental": {
+        "depresión": 18.5,
+        "ansiedad": 20.2,
+        "tasa_suicidio": 9.8
+      }
+    },
+    {
+      "nombre": "Brasil",
+      "población": 212559417,
+      "problemas_salud_mental": {
+        "depresión": 15.7,
+        "ansiedad": 18.3,
+        "tasa_suicidio": 6.1
+      }
+    },
+    {
+      "nombre": "México",
+      "población": 128932753,
+      "problemas_salud_mental": {
+        "depresión": 17.2,
+        "ansiedad": 19.1,
+        "tasa_suicidio": 5.5
+      }
+    },
+    {
+      "nombre": "Colombia",
+      "población": 50882891,
+      "problemas_salud_mental": {
+        "depresión": 16.8,
+        "ansiedad": 18.7,
+        "tasa_suicidio": 8.7
+      }
+    }
+  ]
+}

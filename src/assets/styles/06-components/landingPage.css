@@ -26,6 +26,10 @@ h3 {
   text-shadow: 2px 2px var(--december-sky);
 }
 
+p {
+  line-height: 1.5;
+}
+
 .landing-header {
   color: var(--white);
   display: flex;
@@ -61,7 +65,6 @@ h3 {
 
     & a.active {
       border-bottom: 2px solid white;
-      transition: 0.5s ease-out;
     }
   }
 }
@@ -105,7 +108,7 @@ h3 {
   text-align: center;
 
   .stats-graph {
-    width: 40%;
+    min-width: 40%;
   }
 
   .stats-text {
@@ -134,6 +137,7 @@ h3 {
 
     & span {
       font-weight: 600;
+      text-shadow: 2px 2px var(--december-sky);
     }
   }
 
@@ -232,8 +236,13 @@ h3 {
   }
 
   .landing-stats {
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding: 0px;
+
+    .stats-graph {
+      width: 80%;
+      margin-top: 2em;
+    }
   }
 
   .about-icons {
