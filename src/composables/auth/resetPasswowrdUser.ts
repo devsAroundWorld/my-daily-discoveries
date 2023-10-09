@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import { getAuth, createUserWithEmailAndPassword, updateProfile  } from 'firebase/auth'
+import { getAuth, sendPasswordResetEmail, updateProfile } from 'firebase/auth'
 import { reset } from '@formkit/vue'
 
 export interface UserType {
@@ -16,11 +16,11 @@ const resetPasswordUser = () => {
 
   const handleCreateUser = async (user: UserType) => {
     try {
-      const { email, password, username } = user
+      const { email, username } = user
       const payload = {
         displayName: username
       }
-      const response = await createUserWithEmailAndPassword(auth, email, password)
+      const response = await sendPasswordResetEmail(auth, email)
       userCredential.value = response
       reset('registerForm')
       if (response.user) {
