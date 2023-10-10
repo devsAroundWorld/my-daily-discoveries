@@ -163,11 +163,23 @@
       >
         <FormKit
           type="button"
-          label="Registrarme / Iniciar Sesión"
+          label="Registrarme"
           role="link"
           @click="navigate"
         />
       </router-link>
+      <p
+        class="sign-in-text"
+        style="font-style: normal;"
+      >
+        ¿Ya tienes una cuenta?
+        <router-link
+          class="sign-in-text_link"
+          to="/"
+        >
+          Inicia sesión aquí
+        </router-link>
+      </p>
     </div>
     <div class="main-animation">
       <Vue3Lottie

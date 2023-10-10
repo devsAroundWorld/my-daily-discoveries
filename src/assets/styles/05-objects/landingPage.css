@@ -83,6 +83,20 @@ p {
     width: 50%;
     filter: drop-shadow(-16px -6px 12px #5c595f57);
   }
+
+  .sign-in-text {
+    font-size: 14px;
+
+    .sign-in-text_link {
+      font-weight: 600;
+    }
+
+    .sign-in-text_link:hover {
+      color: var(--gentle-purple);
+      text-decoration: underline;
+    }
+  }
+
 }
 
 .landing-stats {
