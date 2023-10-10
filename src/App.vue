@@ -4,5 +4,4 @@
 
 <template>
   <RouterView />
-  <router-link to="/reset">Reset</router-link>
 </template>

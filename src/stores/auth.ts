@@ -1,13 +1,22 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getAuth, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  sendPasswordResetEmail
+} from 'firebase/auth'
 import { reset } from '@formkit/vue'
 import type { UserRegisterFieldInterface, UserDataInterface } from '@/models/User'
 
+const auth = getAuth()
+
 export const useAuthStore = defineStore('auth', () => {
-  const auth = getAuth()
   const userData = ref<UserDataInterface | null>()
+
   const loadingSession = ref(false)
+  const error = ref()
 
   function currentUser () {
     return new Promise((resolve, reject) => {
@@ -48,14 +57,26 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.user) {
         updateProfile(response.user, payload)
           .then(() => {
-            console.log(response.user)
+            //TODO: Si el registro es correcto mandar un toast de que fue correctamente regustrado
+            //TODO: Si el registro es correcto mandar a la vista del dashboard
             alert('Usuario registrado correctamente')
           })
       }
-      //TODO: Si el registro es correcto mandar un toast de que fue correctamente regustrado
+    } catch (e) {
+      error.value = e
+      //TODO: Si el registro es correcto mandar un toast de que fue Incorrectamente regustrado
       //TODO: Si el registro es correcto mandar a la vista del dashboard
-    } catch (error) {
-      console.error(error)
+    }
+  }
+
+  const resetPassword = async (data: { email: string }) => {
+    try {
+      const { email } = data
+      const response = await sendPasswordResetEmail(auth, email)
+      reset('resetForm')
+      console.log(response)
+    } catch (e) {
+      error.value = e
     }
   }
 
@@ -66,6 +87,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Getters
     // Actions
     registerUser,
-    currentUser
+    currentUser,
+    resetPassword
   }
 })
