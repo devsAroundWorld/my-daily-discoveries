@@ -17,8 +17,8 @@ const requireAuth = async (to: RouteLocationNormalized, from: RouteLocationNorma
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('../views/HomeView.vue'),
+    name: 'landingPage',
+    component: () => import('../views/LandingPageView.vue'),
   },
   {
     path: '/sign-up',
