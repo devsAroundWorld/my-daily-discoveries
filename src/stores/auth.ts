@@ -69,15 +69,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const resetPassword = async (data: { email: string }) => {
-    try {
-      const { email } = data
-      const response = await sendPasswordResetEmail(auth, email)
-      reset('resetForm')
-      console.log(response)
-    } catch (e) {
-      error.value = e
-    }
+  const resetPassword = (data: { email: string }) => {
+    const { email } = data
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        reset('resetForm')
+      })
+      .catch((e) => {
+        console.log(e)
+        error.value = e
+      })
   }
 
   return {
