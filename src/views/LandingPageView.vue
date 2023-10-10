@@ -150,7 +150,7 @@
   >
     <div class="main-text">
       <h2
-        style="font-size: 48px;"
+        style="font-size: 40px;"
         class="title"
       >
         Conecta con tus emociones

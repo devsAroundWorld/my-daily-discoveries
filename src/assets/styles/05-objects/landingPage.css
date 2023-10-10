@@ -189,7 +189,7 @@ p {
 
 @media screen and (max-width: 768px) {
 
-  h2 {
+  .title {
     font-size: 32px;
   }
 
