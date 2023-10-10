@@ -49,10 +49,10 @@
     iconSource: file
   }]
 
-  const labels = HealthStats.países.map((pais) => pais.nombre)
-  const depresionData = HealthStats.países.map((pais) => pais.problemas_salud_mental.depresión)
-  const ansiedadData = HealthStats.países.map((pais) => pais.problemas_salud_mental.ansiedad)
-  const tasaSuicidioData = HealthStats.países.map((pais) => pais.problemas_salud_mental.tasa_suicidio)
+  const labels = HealthStats.countries.map((country) => country.name)
+  const depressionData = HealthStats.countries.map((country) => country.mental_health_issues.depression)
+  const anxietyData = HealthStats.countries.map((country) => country.mental_health_issues.anxiety)
+  const suicideRateData = HealthStats.countries.map((country) => country.mental_health_issues.suicide_rate)
   
   const statsOptions = {
     responsive: true,
@@ -73,17 +73,17 @@
     datasets: [
       {
         label: 'Ansiedad',
-        data: ansiedadData,
+        data: anxietyData,
         backgroundColor: ['#8C2FA3'],
       },
       {
         label: 'Depresión',
-        data: depresionData,
+        data: depressionData,
         backgroundColor: ['#CDC1FF'],
       },
       {
         label: 'Tasa Suicidio',
-        data: tasaSuicidioData,
+        data: suicideRateData,
         backgroundColor: ['#B66BC1'],
       }
     ],
@@ -130,7 +130,9 @@
         src="@/assets/img/LogoMDD.png"
         alt="My Daily Discoveries"
       >
-      <h1>My Daily Discoveries</h1>
+      <h1 class="logo-name">
+        My Daily Discoveries
+      </h1>
     </div>
     <nav class="landing-nav">
       <a
@@ -147,7 +149,12 @@
     class="main-container reveal active"
   >
     <div class="main-text">
-      <h2>Conecta con tus emociones</h2>
+      <h2
+        style="font-size: 48px;"
+        class="title"
+      >
+        Conecta con tus emociones
+      </h2>
       <p>Escribe sobre tu día a día y descubre hacia dónde puedes llegar cuando empiezas a conocerte más a ti mismo.</p>
       <router-link 
         v-slot="{ navigate }"
@@ -180,7 +187,12 @@
       />
     </div>
     <div class="stats-text">
-      <h3>La Ansiedad y Depresión son el trastorno mental más frecuente</h3>
+      <h3
+        style="font-size: 32px;"
+        class="title"
+      >
+        La Ansiedad y Depresión son el trastorno mental más frecuente
+      </h3>
       <p>En América Latina la sufre el 5% de la población adulta, pero seis de cada diez no reciben tratamiento.</p>
     </div>
   </section>
@@ -189,7 +201,12 @@
     class="landing-about reveal"
   >
     <div class="about-text">
-      <h3>Acerca de My Daily Discoveries</h3>
+      <h3
+        style="font-size: 32px;"
+        class="title"
+      >
+        Acerca de My Daily Discoveries
+      </h3>
       <p>
         Debemos observarnos y conocer a nuestro <span>"Yo"</span> para poder empezar a ser conscientes de las emociones que sentimos.<br>
         <span>My Daily Discoveries</span> surge de la propuesta de crear una herramienta de Gestión emocional.<br> Aqui encontraras un espacio
@@ -217,6 +234,5 @@
 </template>
 
 <style scoped>
-@import '@/assets/styles/06-components/landingPage.css';
-@import '@/assets/styles/06-components/formkitCustom.css';
+@import '@/assets/styles/05-objects/landingPage.css';
 </style>

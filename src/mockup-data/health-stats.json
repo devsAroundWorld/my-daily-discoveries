@@ -1,39 +1,39 @@
 {
-  "países": [
+  "countries": [
     {
-      "nombre": "Argentina",
-      "población": 45195777,
-      "problemas_salud_mental": {
-        "depresión": 18.5,
-        "ansiedad": 20.2,
-        "tasa_suicidio": 9.8
+      "name": "Argentina",
+      "population": 45195777,
+      "mental_health_issues": {
+        "depression": 18.5,
+        "anxiety": 20.2,
+        "suicide_rate": 9.8
       }
     },
     {
-      "nombre": "Brasil",
-      "población": 212559417,
-      "problemas_salud_mental": {
-        "depresión": 15.7,
-        "ansiedad": 18.3,
-        "tasa_suicidio": 6.1
+      "name": "Brazil",
+      "population": 212559417,
+      "mental_health_issues": {
+        "depression": 15.7,
+        "anxiety": 18.3,
+        "suicide_rate": 6.1
       }
     },
     {
-      "nombre": "México",
-      "población": 128932753,
-      "problemas_salud_mental": {
-        "depresión": 17.2,
-        "ansiedad": 19.1,
-        "tasa_suicidio": 5.5
+      "name": "México",
+      "population": 128932753,
+      "mental_health_issues": {
+        "depression": 17.2,
+        "anxiety": 19.1,
+        "suicide_rate": 5.5
       }
     },
     {
-      "nombre": "Colombia",
-      "población": 50882891,
-      "problemas_salud_mental": {
-        "depresión": 16.8,
-        "ansiedad": 18.7,
-        "tasa_suicidio": 8.7
+      "name": "Colombia",
+      "population": 50882891,
+      "mental_health_issues": {
+        "depression": 16.8,
+        "anxiety": 18.7,
+        "suicide_rate": 8.7
       }
     }
   ]

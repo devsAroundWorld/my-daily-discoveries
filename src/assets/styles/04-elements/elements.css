@@ -7,5 +7,4 @@ body {
   background: linear-gradient(180deg, rgba(115, 113, 252, 1) 51%, rgba(205, 193, 255, 1) 84%);
   background-repeat: no-repeat;
   min-height: 100vh;
-  padding: .5rem 1rem;
 }
