@@ -114,13 +114,8 @@
       } else {
         reveals[i].classList.remove('active')
       }
-
-  
     }
-
-
   }
-
 </script>
 
 <template>
