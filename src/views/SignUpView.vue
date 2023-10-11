@@ -9,16 +9,9 @@
 
 <template>
   <FormLayout class="signup-view">
-    <template #head>
-      <img
-        src="@/assets/img/LogoMDD.png"
-        alt="MY DAILY DISCOVERIES LOGO"
-      >
-
-      <h1 class="signup-title">
-        Se parte de <br>
-        <span>My Daily Discoveries</span>
-      </h1>
+    <template #headingTitle>
+      Se parte de <br>
+      <span class="signup-view__sub-title">My Daily Discoveries</span>
     </template>
     <template #body>
       <FormKit

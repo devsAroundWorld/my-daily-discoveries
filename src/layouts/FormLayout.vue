@@ -6,7 +6,13 @@
 <template>
   <div class="form-layout">
     <BgFormPrincipal>
-      <slot name="head" />
+      <img
+        src="@/assets/img/LogoMDD.png"
+        alt="MY DAILY DISCOVERIES LOGO"
+      >
+      <h1 class="form-layout__title">
+        <slot name="headingTitle" />
+      </h1>
       <CardForm>
         <slot name="body" />
       </CardForm>
@@ -20,5 +26,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  & img {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  & .form-layout__title {
+    color: var(--white);
+    font-weight: normal;
+    font-size: 1.6rem;
+    text-align: center;
+    & span {
+      font-weight: 600;
+      color: var(--pastel-indigo);
+    }
+  }
 }
 </style>
