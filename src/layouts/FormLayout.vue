@@ -1,6 +1,12 @@
 <script setup lang="ts">
   import BgFormPrincipal from '@/components/forms/BgFormPrincipal.vue'
   import CardForm from '@/components/forms/CardForm.vue'
+
+  export interface Props {
+    linkTo: string
+    linkText: string
+  }
+  const props = defineProps<Props>()
 </script>
 
 <template>
@@ -15,6 +21,14 @@
       </h1>
       <CardForm>
         <slot name="body" />
+        <div
+          v-if="props.linkTo"
+          class="form-layout__link"
+        >
+          <router-link :to="props.linkTo">
+            {{ props.linkText }}
+          </router-link>
+        </div>
       </CardForm>
     </BgFormPrincipal>
   </div>
@@ -40,6 +54,28 @@
     & span {
       font-weight: 600;
       color: var(--pastel-indigo);
+    }
+  }
+  & .form-layout__link {
+    text-align: right;
+    color: var(--pastel-indigo);
+    font-weight: normal;
+    font-size: .8rem;
+    & a {
+      font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .form-layout {
+    & .form-layout__title {
+      font-size: 2rem;
+    }
+    & .form-layout__link {
+      font-size: 1rem;
     }
   }
 }

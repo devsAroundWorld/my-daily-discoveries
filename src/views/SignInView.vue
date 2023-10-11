@@ -2,16 +2,19 @@
   import FormLayout from '@/layouts/FormLayout.vue'
   import useInputPassword from '@/composables/useInputPassword'
   import { useAuthStore } from '@/stores/auth'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
   const { handleToggleIconPass } = useInputPassword()
   const { registerUser } = useAuthStore()
+  library.add(faGoogle)
 </script>
 
 <template>
   <FormLayout
     class="signup-view"
-    link-text="Inicia sesión aquí"
-    link-to="/sign-in"
+    link-text="Registrate aquí"
+    link-to="/sign-up"
   >
     <template #headingTitle>
       Se parte de <br>
@@ -28,14 +31,6 @@
       >
         <div class="signup-card">
           <FormKit
-            type="text"
-            name="username"
-            label="Nombre de usuario"
-            placeholder="@username"
-            validation="required|alphanumeric|length:0,8"
-            validation-label="Nombre de usuario"
-          />
-          <FormKit
             type="email"
             name="email"
             label="Correo"
@@ -50,19 +45,17 @@
             @suffix-icon-click="handleToggleIconPass"
           />
           <FormKit
-            type="password"
-            name="password_confirm"
-            label="Confirmar contraseña"
-            validation="required|confirm|length:0,8"
-            validation-label="Confirmar contraseña"
-            suffix-icon="eyeClosed"
-            @suffix-icon-click="handleToggleIconPass"
-          />
-          <FormKit
             type="submit"
-            label="Crear cuenta"
+            label="Iniciar sesióon"
             :disabled="!valid"
           />
+          <p>o usa</p>
+          <FormKit type="submit">
+            <span>
+              Iniciar sesión con gmail
+              <font-awesome-icon icon="fa-brands fa-google" />
+            </span>
+          </FormKit>
         </div>
       </FormKit>
     </template>
@@ -70,18 +63,4 @@
 </template>
 
 <style lang="css" scoped>
-.signup-view {
-  & .signup-view__sub-title {
-    font-weight: 600;
-    color: var(--pastel-indigo);
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .signup-view {
-    & .signup-title {
-      font-size: 2rem;
-    }
-  }
-}
 </style>

@@ -185,7 +185,7 @@
         ¿Ya tienes una cuenta?
         <router-link
           class="sign-in-text_link"
-          to="/"
+          to="/sign-in"
         >
           Inicia sesión aquí
         </router-link>
