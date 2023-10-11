@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import type { Vue3Lottie } from 'vue3-lottie'
-  import WateringPlant from '@/assets/lottie/watering-plant.json'
-  import { ref, onMounted } from 'vue'
-  import location from '@/assets/img/location.png'
-  import idea from '@/assets/img/idea.png'
-  import file from '@/assets/img/file.png'
+  import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
   import { BarChart } from 'vue-chart-3'
   import { Chart, registerables } from 'chart.js'
   import HealthStats from '@/mockup-data/health-stats.json'
+  import WateringPlant from '@/assets/lottie/watering-plant.json'
+  import location from '@/assets/img/location.png'
+  import idea from '@/assets/img/idea.png'
+  import file from '@/assets/img/file.png'
+  import type { Vue3Lottie } from 'vue3-lottie'
   
   Chart.register(...registerables)
   Chart.defaults.color = '#ffff'
@@ -18,7 +18,7 @@
     active: boolean
   }
   
-  const navLinks = ref<NavLinkInterface[]>([{
+  const navLinks = reactive<NavLinkInterface[]>([{
     to: '#main',
     text: 'Bienvenido',
     active: true
@@ -48,6 +48,23 @@
     description: 'Lleva el registro sobre aquellas actividades, series, peliculas que te gustarian realizar o ver.',
     iconSource: file
   }]
+
+  const mainSection = ref<HTMLElement | null>(null)
+  const statsSection = ref<HTMLElement | null>(null)
+  const aboutSection = ref<HTMLElement | null>(null)
+
+  const mainReveal = reactive({
+    isActive: true,
+    element: mainSection
+  })
+  const statsReveal = reactive({
+    isActive: false,
+    element: statsSection
+  })
+  const aboutReveal = reactive({
+    isActive: false,
+    element: aboutSection
+  })
 
   const labels = HealthStats.countries.map((country) => country.name)
   const depressionData = HealthStats.countries.map((country) => country.mental_health_issues.depression)
@@ -90,31 +107,28 @@
   }
 
   onMounted(()=>{
-    window.addEventListener('scroll', handleScroll)  
+    window.addEventListener('scroll', () => {
+      handleScroll(mainReveal)
+      handleScroll(statsReveal)
+      handleScroll(aboutReveal)
+    })
   })
-  
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('scroll', () => {})
+  })
+
   const handleClickNavLink = (link: NavLinkInterface) => {
-    navLinks.value.forEach((navLink)=>{
+    navLinks.forEach((navLink)=>{
       navLink.active = false
     })
     link.active = !link.active
   }
 
-  const handleScroll = () => {
-    const reveals = document.querySelectorAll('.reveal')
-
-    for (let i = 0; i < reveals.length; i++) {
-      const windowHeight = window.innerHeight
-      const elementTop = reveals[i].getBoundingClientRect().top
-      const elementVisible = 120
-
-      //console.log(elementBottom)
-      if (elementTop < windowHeight - elementVisible) {
-        reveals[i].classList.add('active')
-      } else {
-        reveals[i].classList.remove('active')
-      }
-    }
+  const handleScroll = (section: { isActive: boolean, element: HTMLElement | null }) => {
+    const windowHeight = window.innerHeight
+    const elementTop:number = section!.element!.getBoundingClientRect?.()!.top
+    section.isActive = elementTop < windowHeight - 100
   }
 </script>
 
@@ -140,8 +154,9 @@
     </nav>
   </header>
   <section 
-    id="main"
-    class="main-container reveal active"
+    ref="mainSection"
+    class="main-container reveal"
+    :class="{ active: mainReveal.isActive }"
   >
     <div class="main-text">
       <h2
@@ -184,8 +199,9 @@
     </div>
   </section>
   <section
-    id="stats"
+    ref="statsSection"
     class="landing-stats reveal"
+    :class="{ active: statsReveal.isActive }"
   >
     <div class="stats-graph">
       <BarChart
@@ -204,8 +220,9 @@
     </div>
   </section>
   <section
-    id="about"
+    ref="aboutSection"
     class="landing-about reveal"
+    :class="{ active: aboutReveal.isActive }"
   >
     <div class="about-text">
       <h3
