@@ -83,6 +83,20 @@ p {
     width: 50%;
     filter: drop-shadow(-16px -6px 12px #5c595f57);
   }
+
+  .sign-in-text {
+    font-size: 14px;
+
+    .sign-in-text_link {
+      font-weight: 600;
+    }
+
+    .sign-in-text_link:hover {
+      color: var(--gentle-purple);
+      text-decoration: underline;
+    }
+  }
+
 }
 
 .landing-stats {
@@ -113,9 +127,9 @@ p {
   text-align: center;
   font-weight: normal;
   color: white;
-  padding: 3em;
+  padding: 3rem;
 
-  .about-text {
+  & .about-text {
     margin-bottom: 1rem;
 
     & p {
@@ -135,7 +149,7 @@ p {
     flex-wrap: wrap;
     margin-bottom: 5%;
 
-    .about-icons_container {
+    & .about-icons_container {
       width: 300px;
       margin: 10px;
       display: flex;
@@ -178,46 +192,38 @@ p {
 
 .reveal {
   position: relative;
-  transform: translateY(120);
   opacity: 0;
-  transition: 2s all ease;
+  transition: 1.5s opacity ease-in-out;
+  will-change: opacity;
 }
 
 .reveal.active {
-  transform: translateY(0);
   opacity: 1;
 }
 
 @media screen and (max-width: 768px) {
-
   .title {
     font-size: 32px;
   }
-
   .landing-header {
     flex-direction: column;
-
-    .landing-nav {
+    & .landing-nav {
       font-size: 12px;
       margin-top: 5px;
       text-align: center;
-
       & a {
         margin: 10px;
         padding: 3px;
       }
     }
   }
-
   .main-container {
     flex-direction: column-reverse;
     padding: 0px;
-
-    .main-text {
+    & .main-text {
       width: 100%;
     }
-
-    .main-animation {
+    & .main-animation {
       width: 80%;
     }
   }
@@ -225,13 +231,11 @@ p {
   .landing-stats {
     flex-direction: column-reverse;
     padding: 0px;
-
-    .stats-graph {
+    & .stats-graph {
       width: 80%;
       margin-top: 2rem;
     }
   }
-
   .about-icons {
     flex-direction: column;
   }

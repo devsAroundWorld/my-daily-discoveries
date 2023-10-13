@@ -7,6 +7,8 @@ import App from './App.vue'
 import router from './router'
 import Vue3Lottie from 'vue3-lottie'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import '@/assets/styles/index.css'
 
 const app = createApp(App)
@@ -22,6 +24,11 @@ app.use(plugin, formKitConfig)
 app.use(Vue3Lottie)
 
 app.component('FontAwesomeIcon', FontAwesomeIcon)
+
+app.use(Vue3Toastify, {
+  autoClose: 2000,
+  closeOnClick: false,
+} as ToastContainerOptions)
 
 app.mount('#app')
 

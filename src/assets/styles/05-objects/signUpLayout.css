@@ -1,19 +1,7 @@
 .signup-view {
-  & img {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-  }
-  & .signup-title {
-    color: var(--white);
-    font-weight: normal;
-    font-size: 1.6rem;
-    text-align: center;
-    & span {
-      font-weight: 600;
-      color: var(--pastel-indigo);
-    }
+  & .signup-view__sub-title {
+    font-weight: 600;
+    color: var(--pastel-indigo);
   }
   & .signup-view__have-account {
     text-align: right;

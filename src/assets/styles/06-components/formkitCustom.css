@@ -23,4 +23,5 @@ button.formkit-input {
 [data-type="button"] .formkit-input,
 [data-type="submit"] .formkit-input {
   width: 100%;
+  text-align: center;
 }
