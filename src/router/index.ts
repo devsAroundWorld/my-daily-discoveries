@@ -32,6 +32,11 @@ const routes = [
     beforeEnter: requireAuth
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('../views/ProfileView.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: import('../views/NotFoundView.vue'),
