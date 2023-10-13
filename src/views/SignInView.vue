@@ -4,7 +4,7 @@
   import { useAuthStore } from '@/stores/auth'
 
   const { handleToggleIconPass } = useInputPassword()
-  const { loginWithEmailAndPassword } = useAuthStore()
+  const { loginWithEmailAndPassword, loginWithGoogle } = useAuthStore()
 </script>
 
 <template>
@@ -55,6 +55,7 @@
           id="loginFormGoogle"
           type="form"
           :actions="false"
+          @submit="loginWithGoogle"
         >
           <FormKit
             type="submit"

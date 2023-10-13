@@ -6,7 +6,9 @@ import {
   updateProfile,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup
 } from 'firebase/auth'
 import { reset } from '@formkit/vue'
 import { toast } from 'vue3-toastify'
@@ -123,6 +125,30 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const loginWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider()
+      const loginGooglePromise = signInWithPopup(auth, provider)
+      const response = await toast.promise(loginGooglePromise, {
+        pending: 'Iniciando sesion con google',
+        success: 'Inicio de sesión satisfactorio con google',
+      }, { containerId: 'loginToastGoogle' })
+
+      if (response.user) {
+        setTimeout(() => {
+          toast.remove('loginToastGoogle')
+          router.push({ name: 'dashboard' })
+        }, 1000)
+      }
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(`App Error: ${error.message}`)
+      } else {
+        toast.error('Hubo un error al intentar iniciar sesion con google. Por favor, inténtelo de nuevo más tarde.')
+      }
+    }
+  }
+
   return {
     // State
     userData,
@@ -132,6 +158,7 @@ export const useAuthStore = defineStore('auth', () => {
     registerUser,
     currentUser,
     resetPassword,
-    loginWithEmailAndPassword
+    loginWithEmailAndPassword,
+    loginWithGoogle
   }
 })
