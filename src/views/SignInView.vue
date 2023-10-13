@@ -2,65 +2,81 @@
   import FormLayout from '@/layouts/FormLayout.vue'
   import useInputPassword from '@/composables/useInputPassword'
   import { useAuthStore } from '@/stores/auth'
-  import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
   const { handleToggleIconPass } = useInputPassword()
-  const { registerUser } = useAuthStore()
-  library.add(faGoogle)
+  const { loginWithEmailAndPassword } = useAuthStore()
 </script>
 
 <template>
   <FormLayout
-    class="signup-view"
+    class="signin-view"
     link-text="Registrate aquí"
     link-to="/sign-up"
   >
     <template #headingTitle>
-      Se parte de <br>
-      <span class="signup-view__sub-title">My Daily Discoveries</span>
+      Iniciar <b>sesión</b> 
     </template>
     <template #body>
-      <FormKit
-        id="registerForm"
-        v-slot="{ state: { valid } }"
-        type="form"
-        :actions="false"
-        incomplete-message="Todos los campos son requeridos, completa los campos."
-        @submit="registerUser"
-      >
-        <div class="signup-card">
-          <FormKit
-            type="email"
-            name="email"
-            label="Correo"
-            validation="required|email"
-          />
-          <FormKit
-            type="password"
-            name="password"
-            label="Contraseña"
-            validation="required|length:0,8"
-            suffix-icon="eyeClosed"
-            @suffix-icon-click="handleToggleIconPass"
-          />
+      <div>
+        <FormKit
+          id="loginFormEmailAndPass"
+          v-slot="{ state: { valid } }"
+          type="form"
+          :actions="false"
+          incomplete-message="Todos los campos son requeridos, completa los campos."
+          @submit="loginWithEmailAndPassword"
+        >
+          <div class="signup-card">
+            <FormKit
+              type="email"
+              name="email"
+              label="Correo"
+              validation="required|email"
+            />
+            <FormKit
+              type="password"
+              name="password"
+              label="Contraseña"
+              validation="required|length:0,8"
+              suffix-icon="eyeClosed"
+              @suffix-icon-click="handleToggleIconPass"
+            />
+            <FormKit
+              type="submit"
+              label="Iniciar sesióon"
+              :disabled="!valid"
+            />
+          </div>
+        </FormKit>
+        <p class="sign-in__or-text">
+          o
+        </p>
+        <FormKit
+          id="loginFormGoogle"
+          type="form"
+          :actions="false"
+        >
           <FormKit
             type="submit"
-            label="Iniciar sesióon"
-            :disabled="!valid"
+            label="Iniciar sesión con google"
+            suffix-icon="google"
           />
-          <p>o usa</p>
-          <FormKit type="submit">
-            <span>
-              Iniciar sesión con gmail
-              <font-awesome-icon icon="fa-brands fa-google" />
-            </span>
-          </FormKit>
-        </div>
-      </FormKit>
+        </FormKit>
+      </div>
     </template>
   </FormLayout>
 </template>
 
 <style lang="css" scoped>
+.signin-view {
+  & .sign-in__or-text {
+    font-weight: 400;
+    font-style: normal;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  & b {
+    color: var(--pastel-indigo);
+  }
+}
 </style>

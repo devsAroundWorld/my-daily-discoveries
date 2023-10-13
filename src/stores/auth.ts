@@ -5,12 +5,13 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword
 } from 'firebase/auth'
 import { reset } from '@formkit/vue'
 import { toast } from 'vue3-toastify'
 import { useRouter } from 'vue-router'
-import type { UserRegisterFieldInterface, UserDataInterface } from '@/models/User'
+import type { UserRegisterFieldInterface, UserDataInterface, UserLoginFieldInterface } from '@/models/User'
 import { FirebaseError } from 'firebase/app'
 
 const auth = getAuth()
@@ -48,20 +49,24 @@ export const useAuthStore = defineStore('auth', () => {
     })
   }
 
-  const registerUser = async (user: UserRegisterFieldInterface) => {
+  const registerUser = async (data: UserRegisterFieldInterface) => {
     try {
-      const { email, password, username } = user
+      const { email, password, username } = data
       const payload = {
         displayName: username
       }
-      const response = await createUserWithEmailAndPassword(auth, email, password)
-      reset('registerForm')
+      const userCredentialPromise = createUserWithEmailAndPassword(auth, email, password)
+      const response = await toast.promise(userCredentialPromise, {
+        pending: `Registrando usuario ${username}`,
+        success: `Usuario ${username} registrado correctamente`,
+      }, { containerId: 'registerToast' })
       if (response.user) {
+        reset('registerForm')
         await updateProfile(response.user, payload)
-        toast.success(`Usuario ${username} registrado correctamente`)
         setTimeout(() => {
+          toast.remove('registerToast')
           router.push({ name: 'dashboard' })
-        }, 2000)
+        }, 1000)
       } else {
         throw new Error('No se pudo registrar el usuario')
       }
@@ -92,6 +97,32 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const loginWithEmailAndPassword = async (data: UserLoginFieldInterface) => {
+    const { email, password } = data
+    try {
+      const loginWithEmailAndPassPromise = signInWithEmailAndPassword(auth, email, password)
+      const response = await toast.promise(loginWithEmailAndPassPromise, {
+        pending: 'Iniciando sesion',
+        success: 'Inicio de sesión satisfactorio',
+      }, { containerId: 'loginToast' })
+
+      if (response.user) {
+        reset('loginFormEmailAndPass')
+        setTimeout(() => {
+          toast.remove('loginToast')
+          router.push({ name: 'dashboard' })
+        }, 1000)
+      }
+
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(`App Error: ${error.message}`)
+      } else {
+        toast.error('Hubo un error al intentar iniciar sesion al usuario. Por favor, inténtelo de nuevo más tarde.')
+      }
+    }
+  }
+
   return {
     // State
     userData,
@@ -100,6 +131,7 @@ export const useAuthStore = defineStore('auth', () => {
     // Actions
     registerUser,
     currentUser,
-    resetPassword
+    resetPassword,
+    loginWithEmailAndPassword
   }
 })

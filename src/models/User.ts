@@ -12,3 +12,8 @@ export interface UserDataInterface {
   photo: string | null
   phone: string | null
 }
+
+export interface UserLoginFieldInterface {
+  email: string
+  password: string
+}
