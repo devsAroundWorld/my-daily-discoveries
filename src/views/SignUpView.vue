@@ -10,8 +10,8 @@
 <template>
   <FormLayout
     class="signup-view"
-    link-text="Inicia sesión aquí"
-    link-to="/sign-in"
+    link-footer-text="Inicia sesión"
+    link-footer-to="/sign-in"
   >
     <template #headingTitle>
       Se parte de <br>

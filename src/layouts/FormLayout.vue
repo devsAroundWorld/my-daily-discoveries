@@ -3,8 +3,9 @@
   import CardForm from '@/components/forms/CardForm.vue'
 
   export interface Props {
-    linkTo: string
-    linkText: string
+    linkFooterTo: string
+    linkFooterText: string
+    hasResetPassword?: boolean
   }
   const props = defineProps<Props>()
 </script>
@@ -22,11 +23,17 @@
       <CardForm>
         <slot name="body" />
         <div
-          v-if="props.linkTo"
-          class="form-layout__link"
+          v-if="props.linkFooterTo"
+          class="form-layout__links"
         >
-          <router-link :to="props.linkTo">
-            {{ props.linkText }}
+          <router-link
+            v-if="props.hasResetPassword"
+            :to="{ name: 'reset-password' }"
+          >
+            Reestablecer mi contraseña
+          </router-link>
+          <router-link :to="props.linkFooterTo">
+            {{ props.linkFooterText }}
           </router-link>
         </div>
       </CardForm>
@@ -40,6 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 1rem;
   & img {
     object-fit: cover;
     width: 100px;
@@ -56,11 +64,13 @@
       color: var(--pastel-indigo);
     }
   }
-  & .form-layout__link {
+  & .form-layout__links {
     text-align: right;
     color: var(--pastel-indigo);
     font-weight: normal;
     font-size: .8rem;
+    display: flex;
+    justify-content: space-between;
     & a {
       font-weight: 500;
       &:hover {
@@ -74,7 +84,7 @@
     & .form-layout__title {
       font-size: 2rem;
     }
-    & .form-layout__link {
+    & .form-layout__links {
       font-size: 1rem;
     }
   }

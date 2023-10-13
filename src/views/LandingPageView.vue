@@ -150,10 +150,13 @@
         :href="link.to"
         :class="{'active':link.active}"
         @click="handleClickNavLink(link)"
-      >{{ link.text }}</a>
+      >
+        {{ link.text }}
+      </a>
     </nav>
   </header>
   <section 
+    id="main"
     ref="mainSection"
     class="main-container reveal"
     :class="{ active: mainReveal.isActive }"
@@ -194,11 +197,12 @@
     <div class="main-animation">
       <Vue3Lottie
         :animation-data="WateringPlant"
-        :pause-on-hover="true"
+        pause-on-hover
       />
     </div>
   </section>
   <section
+    id="stats"
     ref="statsSection"
     class="landing-stats reveal"
     :class="{ active: statsReveal.isActive }"
@@ -220,6 +224,7 @@
     </div>
   </section>
   <section
+    id="about"
     ref="aboutSection"
     class="landing-about reveal"
     :class="{ active: aboutReveal.isActive }"
@@ -257,6 +262,6 @@
   </footer>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 @import '@/assets/styles/05-objects/landingPage.css';
 </style>

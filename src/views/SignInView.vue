@@ -10,8 +10,9 @@
 <template>
   <FormLayout
     class="signin-view"
-    link-text="Registrate aquí"
-    link-to="/sign-up"
+    link-footer-text="Registrate"
+    link-footer-to="/sign-up"
+    has-reset-password
   >
     <template #headingTitle>
       Iniciar <b>sesión</b> 
