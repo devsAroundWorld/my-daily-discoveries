@@ -3,14 +3,12 @@ import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
 
 const requireAuth = async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
   const authStore = useAuthStore()
-  authStore.loadingSession = true
   const user = await authStore.currentUser()
   if (user) {
     next()
   } else {
     next('/')
   }
-  authStore.loadingSession = false
 }
 
 export const privateRoutes = [
