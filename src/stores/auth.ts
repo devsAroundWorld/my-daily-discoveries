@@ -37,6 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
               photo: photoURL,
               phone: phoneNumber,
             }
+            console.log(user)
           } else {
             userData.value = null
           }
