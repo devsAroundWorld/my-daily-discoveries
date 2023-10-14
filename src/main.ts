@@ -26,8 +26,7 @@ app.use(Vue3Lottie)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 app.use(Vue3Toastify, {
-  autoClose: 2000,
-  closeOnClick: false,
+  autoClose: false
 } as ToastContainerOptions)
 
 app.mount('#app')

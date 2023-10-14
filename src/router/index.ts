@@ -26,6 +26,11 @@ const routes = [
     component: () => import('../views/SignUpView.vue'),
   },
   {
+    path: '/sign-in',
+    name: 'sign-in',
+    component: () => import('../views/SignInView.vue'),
+  },
+  {
     path: '/reset-password',
     name: 'reset-password',
     component: () => import('../views/ResetPasswordView.vue')
