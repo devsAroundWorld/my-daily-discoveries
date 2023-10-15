@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+  import { ref, reactive, onMounted, onUnmounted } from 'vue'
   import { BarChart } from 'vue-chart-3'
   import { Chart, registerables } from 'chart.js'
   import HealthStats from '@/mockup-data/health-stats.json'
@@ -114,7 +114,7 @@
     })
   })
 
-  onBeforeUnmount(() => {
+  onUnmounted(() => {
     window.removeEventListener('scroll', () => {})
   })
 
@@ -127,8 +127,10 @@
 
   const handleScroll = (section: { isActive: boolean, element: HTMLElement | null }) => {
     const windowHeight = window.innerHeight
-    const elementTop:number = section!.element!.getBoundingClientRect?.()!.top
-    section.isActive = elementTop < windowHeight - 100
+    const elementTop = section.element?.getBoundingClientRect()?.top
+    if (elementTop !== undefined) {
+      section.isActive = elementTop < windowHeight - 100
+    }
   }
 </script>
 

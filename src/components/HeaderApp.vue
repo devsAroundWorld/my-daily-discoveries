@@ -6,7 +6,7 @@
 
   const navLinks = [
     {
-      to: '/',
+      to: '/user',
       text: 'Dashboard',
       icon: 'fa-house-user'
     },
@@ -67,15 +67,18 @@
         <font-awesome-icon :icon="['fa', 'circle-xmark']" />
       </button>
       <ul>
-        <li
+        <router-link
           v-for="link in navLinks"
           :key="`${link}-1`"
+          :to="link.to"
         >
-          <font-awesome-icon :icon="link.icon" />
-          <router-link :to="link.to">
-            {{ link.text }}
-          </router-link>
-        </li>
+          <li>
+            <font-awesome-icon :icon="link.icon" />
+            <span>
+              {{ link.text }}
+            </span>
+          </li>
+        </router-link>
       </ul>
       <button
         class="header__btn-log-out"
@@ -86,9 +89,20 @@
       </button>
     </nav>
     <div class="header__account">
-      <span v-if="userData?.userName">
-        @{{ userData.userName }}
-      </span>
+      <div
+        v-if="userData?.userName"
+        class="header__account--info"
+      >
+        <span>
+          Bienvenido: <b>@{{ userData.userName }}</b>!
+        </span>
+        <button
+          class="header__account--logout"
+          @click="logOut"
+        >
+          Cerrar sesion
+        </button>
+      </div>
       <img
         v-if="userData?.photo"
         :src="userData?.photo"

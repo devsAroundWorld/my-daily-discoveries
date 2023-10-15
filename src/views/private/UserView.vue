@@ -9,4 +9,3 @@
     <RouterView />
   </div>
 </template>
-
