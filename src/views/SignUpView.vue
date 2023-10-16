@@ -8,7 +8,11 @@
 </script>
 
 <template>
-  <FormLayout class="signup-view">
+  <FormLayout
+    class="signup-view"
+    link-footer-text="Inicia sesión"
+    link-footer-to="/sign-in"
+  >
     <template #headingTitle>
       Se parte de <br>
       <span class="signup-view__sub-title">My Daily Discoveries</span>
@@ -61,16 +65,23 @@
           />
         </div>
       </FormKit>
-      <p class="signup-view__have-account">
-        ¿Ya tienes una cuenta?
-        <router-link to="/">
-          Inicia sesión aquí
-        </router-link>
-      </p>
     </template>
   </FormLayout>
 </template>
 
 <style lang="css" scoped>
-@import '@/assets/styles/05-objects/signUpLayout.css';
+.signup-view {
+  & .signup-view__sub-title {
+    font-weight: 600;
+    color: var(--pastel-indigo);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .signup-view {
+    & .signup-title {
+      font-size: 2rem;
+    }
+  }
+}
 </style>

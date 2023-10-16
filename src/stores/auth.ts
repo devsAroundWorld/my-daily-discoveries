@@ -5,20 +5,28 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut
 } from 'firebase/auth'
 import { reset } from '@formkit/vue'
 import { toast } from 'vue3-toastify'
 import { useRouter } from 'vue-router'
-import type { UserRegisterFieldInterface, UserDataInterface } from '@/models/User'
+import type { UserRegisterFieldInterface, UserDataInterface, UserLoginFieldInterface } from '@/models/User'
 import { FirebaseError } from 'firebase/app'
 
 const auth = getAuth()
+const COMMON_TOAST_OPTIONS = {
+  autoClose: 500,
+  hideProgressBar: true,
+  closeButton: false,
+}
 
 export const useAuthStore = defineStore('auth', () => {
   const userData = ref<UserDataInterface | null>()
   const router = useRouter()
-  const loadingSession = ref(false)
 
   function currentUser () {
     return new Promise((resolve, reject) => {
@@ -48,20 +56,24 @@ export const useAuthStore = defineStore('auth', () => {
     })
   }
 
-  const registerUser = async (user: UserRegisterFieldInterface) => {
+  const registerUser = async (data: UserRegisterFieldInterface) => {
     try {
-      const { email, password, username } = user
+      const { email, password, username } = data
       const payload = {
         displayName: username
       }
-      const response = await createUserWithEmailAndPassword(auth, email, password)
-      reset('registerForm')
+      const userCredentialPromise = createUserWithEmailAndPassword(auth, email, password)
+      const response = await toast.promise(userCredentialPromise, {
+        pending: `Registrando usuario ${username}`,
+        success: `Usuario ${username} registrado correctamente`,
+      }, { containerId: 'registerToast' })
       if (response.user) {
+        reset('registerForm')
         await updateProfile(response.user, payload)
-        toast.success(`Usuario ${username} registrado correctamente`)
         setTimeout(() => {
-          router.push({ name: 'dashboard' })
-        }, 2000)
+          toast.remove('registerToast')
+          router.push({ name: 'user' })
+        }, 1000)
       } else {
         throw new Error('No se pudo registrar el usuario')
       }
@@ -70,7 +82,7 @@ export const useAuthStore = defineStore('auth', () => {
         toast.error(`App Error: ${error.message}`)
       } else {
         console.error('Error al registrar el usuario:', error)
-        toast.error('Hubo un error al intentar registrar al usuario. Por favor, inténtelo de nuevo más tarde.')
+        toast.error('Hubo un error al intentar registrar al usuario. Por favor, inténtelo de nuevo o más tarde.')
       }
     }
   }
@@ -92,14 +104,89 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const loginWithEmailAndPassword = async (data: UserLoginFieldInterface) => {
+    const { email, password } = data
+    try {
+      const loginWithEmailAndPassPromise = signInWithEmailAndPassword(auth, email, password)
+      await toast.promise(loginWithEmailAndPassPromise, {
+        pending: 'Iniciando sesion',
+        success: 'Inicio de sesión satisfactorio',
+      },{
+        containerId: 'loginToast',
+        onClose: () => {
+          reset('loginFormEmailAndPass')
+          toast.remove('loginToast')
+          router.push({ name: 'user' })
+        },
+        ...COMMON_TOAST_OPTIONS,
+      })
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(`App Error: ${error.message}`)
+      } else {
+        toast.error('Hubo un error al intentar iniciar sesion al usuario. Por favor, inténtelo de nuevo o más tarde.')
+      }
+    }
+  }
+
+  const loginWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider()
+      const loginGooglePromise = signInWithPopup(auth, provider)
+      await toast.promise(loginGooglePromise, {
+        pending: 'Iniciando sesion con google',
+        success: 'Inicio de sesión satisfactorio con google',
+      }, {
+        containerId: 'loginToastGoogle',
+        onClose: () => {
+          toast.remove('loginToastGoogle')
+          router.push({ name: 'user' })
+        },
+        ...COMMON_TOAST_OPTIONS,
+      })
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(`App Error: ${error.message}`)
+      } else {
+        toast.error('Hubo un error al intentar iniciar sesion con google. Por favor, inténtelo de nuevo o más tarde.')
+      }
+    }
+  }
+
+  const logOut = async () => {
+    try {
+      const logOutPromise = signOut(auth)
+      await toast.promise(logOutPromise, {
+        pending: 'Cerrando sesion',
+        success: 'Cierre de sesión satisfactorio',
+      }, {
+        containerId: 'logoutToast',
+        onClose: () => {
+          toast.remove('logoutToast')
+          router.push({ name: 'sign-in' })
+          userData.value = null
+        },
+        ...COMMON_TOAST_OPTIONS,
+      })
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        toast.error(`App Error: ${error.message}`)
+      } else {
+        toast.error('Hubo un error al intentar cerrar sesion. Por favor, inténtelo de nuevo o más tarde.')
+      }
+    }
+  }
+
   return {
     // State
     userData,
-    loadingSession,
     // Getters
     // Actions
     registerUser,
     currentUser,
-    resetPassword
+    resetPassword,
+    loginWithEmailAndPassword,
+    loginWithGoogle,
+    logOut
   }
 })

@@ -6,7 +6,10 @@
 </script>
 
 <template>
-  <FormLayout>
+  <FormLayout
+    link-footer-to="/sign-in"
+    link-footer-text="Iniciar sesión"
+  >
     <template #headingTitle>
       Reestablecer<br>
       <span>Contraseña</span>
