@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+  import { ref, reactive, onMounted, onUnmounted } from 'vue'
   import { BarChart } from 'vue-chart-3'
   import { Chart, registerables } from 'chart.js'
   import HealthStats from '@/mockup-data/health-stats.json'
@@ -114,7 +114,7 @@
     })
   })
 
-  onBeforeUnmount(() => {
+  onUnmounted(() => {
     window.removeEventListener('scroll', () => {})
   })
 
@@ -127,8 +127,10 @@
 
   const handleScroll = (section: { isActive: boolean, element: HTMLElement | null }) => {
     const windowHeight = window.innerHeight
-    const elementTop:number = section!.element!.getBoundingClientRect?.()!.top
-    section.isActive = elementTop < windowHeight - 100
+    const elementTop = section.element?.getBoundingClientRect()?.top
+    if (elementTop !== undefined) {
+      section.isActive = elementTop < windowHeight - 100
+    }
   }
 </script>
 
@@ -150,10 +152,13 @@
         :href="link.to"
         :class="{'active':link.active}"
         @click="handleClickNavLink(link)"
-      >{{ link.text }}</a>
+      >
+        {{ link.text }}
+      </a>
     </nav>
   </header>
   <section 
+    id="main"
     ref="mainSection"
     class="main-container reveal"
     :class="{ active: mainReveal.isActive }"
@@ -185,7 +190,7 @@
         ¿Ya tienes una cuenta?
         <router-link
           class="sign-in-text_link"
-          to="/"
+          to="/sign-in"
         >
           Inicia sesión aquí
         </router-link>
@@ -194,11 +199,12 @@
     <div class="main-animation">
       <Vue3Lottie
         :animation-data="WateringPlant"
-        :pause-on-hover="true"
+        pause-on-hover
       />
     </div>
   </section>
   <section
+    id="stats"
     ref="statsSection"
     class="landing-stats reveal"
     :class="{ active: statsReveal.isActive }"
@@ -220,6 +226,7 @@
     </div>
   </section>
   <section
+    id="about"
     ref="aboutSection"
     class="landing-about reveal"
     :class="{ active: aboutReveal.isActive }"
@@ -257,6 +264,6 @@
   </footer>
 </template>
 
-<style scoped>
+<style lang="css" scoped>
 @import '@/assets/styles/05-objects/landingPage.css';
 </style>
