@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+  
 </script>
 
 <template>
