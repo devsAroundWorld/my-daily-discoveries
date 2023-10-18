@@ -6,20 +6,20 @@
 
   const navLinks = [
     {
-      to: '/user',
+      to: '/user/dashboard',
       text: 'Dashboard',
       icon: 'fa-house-user'
     },
     {
-      to: '/',
+      to: '/user/todo',
       text: 'Cosas por ver o hacer',
       icon: 'fa-list'
     },
     {
-      to: '/',
+      to: '/user/my-profile',
       text: 'Mi Perfil',
       icon: 'fa-user'
-    }
+    },
   ]
 
   const isActive = ref(false)

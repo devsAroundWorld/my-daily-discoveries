@@ -17,11 +17,19 @@ export const privateRoutes = [
     name: 'user',
     component: () => import('../views/private/UserView.vue'),
     beforeEnter: requireAuth,
-    redirect: '/user/dashboard',
+    redirect: '/user/my-profile',
     children: [
       {
+        path: 'my-profile',
+        component: () => import('../views/private/MyProfileView.vue'),
+      },
+      {
         path: 'dashboard',
-        component: () => import('../views/private/DashboardView.vue'),
+        component: () => import('../views/private/DashBoardView.vue'),
+      },
+      {
+        path: 'todo',
+        component: () => import('../views/private/TodoView.vue'),
       }
     ],
   }
