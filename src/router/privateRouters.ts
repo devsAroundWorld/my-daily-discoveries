@@ -25,7 +25,7 @@ export const privateRoutes = [
       },
       {
         path: 'dashboard',
-        component: () => import('../views/private/DashBoardView.vue'),
+        component: () => import('../views/private/DashboardView.vue'),
       },
       {
         path: 'todo',
