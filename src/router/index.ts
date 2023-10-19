@@ -6,11 +6,6 @@ const routes = [
   ...publicRoutes,
   ...privateRoutes,
   {
-    path: '/profile',
-    name: 'profile',
-    component: () => import('../views/ProfileView.vue')
-  },
-  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/NotFoundView.vue'),

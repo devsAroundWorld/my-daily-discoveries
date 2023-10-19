@@ -1,9 +1,10 @@
 <script setup lang="ts">
+  import ProfileInfo from '@/components/ProfileInfo.vue'
 </script>
 
 <template>
   <div class="dashboard-view">
-    <div>Perfil de usuario</div>
+    <div><ProfileInfo /></div>
     <div>
       <div>Feed</div>
     </div>

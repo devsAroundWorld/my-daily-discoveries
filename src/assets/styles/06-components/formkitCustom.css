@@ -25,3 +25,16 @@ button.formkit-input {
   width: 100%;
   text-align: center;
 }
+
+[data-type="checkbox"] .formkit-input~.formkit-decorator {
+  margin: 0;
+}
+
+[data-type="checkbox"] .formkit-mdd-label {
+  color: black;
+  margin-left: 5px;
+}
+
+[data-type="checkbox"] fieldset.formkit-fieldset {
+  border: 1px solid var(--gentle-purple);
+}
