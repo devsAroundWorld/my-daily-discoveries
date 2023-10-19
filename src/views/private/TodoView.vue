@@ -4,6 +4,6 @@
 
 <template>
   <div>
-    Dashboard
+    Todo view
   </div>
 </template>
