@@ -1,18 +1,37 @@
 <script setup lang="ts">
   import BgFormPrincipal from '@/components/forms/BgFormPrincipal.vue'
   import CardForm from '@/components/forms/CardForm.vue'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+  import { useRouter } from 'vue-router'
 
+  library.add(faChevronLeft)
+  
   export interface Props {
     linkFooterTo: string
     linkFooterText: string
     hasResetPassword?: boolean
   }
+
   const props = defineProps<Props>()
+
+  const router = useRouter()
+
+  const handleGoLandingPage = () => {
+    router.push({ name: 'landingPage' })
+  }
 </script>
 
 <template>
   <div class="form-layout">
     <BgFormPrincipal>
+      <button
+        class="form-layout__btn-return"
+        @click="handleGoLandingPage"
+      >
+        <font-awesome-icon :icon="['fa', 'chevron-left']" />
+        Regresar
+      </button>
       <img
         src="@/assets/img/LogoMDD.png"
         alt="MY DAILY DISCOVERIES LOGO"
@@ -48,6 +67,20 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  .form-layout__btn-return {
+    color: var(--pastel-indigo);
+    padding: 0 .6rem;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 0 .5rem 0;
+    & svg {
+      width: fit-content;
+      margin-right: .5rem;
+    }
+  }
   & img {
     object-fit: cover;
     width: 100px;
