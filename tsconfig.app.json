@@ -4,6 +4,7 @@
     "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
+    "src/**/**/*.vue",
     "src/**/.ts",
     "src/**/**/*.json",
     "src/mockup-data/*.json"
@@ -20,7 +21,8 @@
       ]
     },
     "types": [
-      "vue3-toastify/global"
+      "vue3-toastify/global",
+      "vite-plugin-pwa/client"
     ]
   }
 }
