@@ -92,7 +92,7 @@
     width: 80%;
     max-width: 250px;
     background-color: var(--light-lavender);
-    border-radius: 30px;
+    border-radius: 6px 6px 50% 50%;
 
     & label {
       width: 50%;
@@ -102,6 +102,8 @@
       color: white;
       background-color: var(--pastel-indigo);
       border-radius: 18px;
+      position: relative;
+      top: 15px;
     }
   }
 
@@ -112,7 +114,7 @@
     margin-bottom: 5px;
 
     & span {
-      color: var(--grape-purple);
+      color: var(--december-sky);
     }
   }
 }
