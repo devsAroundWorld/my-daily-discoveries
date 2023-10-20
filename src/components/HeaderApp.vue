@@ -22,14 +22,9 @@
     },
   ]
 
-  const isActive = ref(false)
+  const isActiveMenu = ref(false)
 
   const { userData, logOut } = useAuthStore()
-
-  const handleLogOut = () => {
-    isActive.value = false
-    logOut()
-  }
 
   library.add(
     faUser,
@@ -46,7 +41,7 @@
     <div class="header__menu">
       <button
         role="button"
-        @click="isActive = !isActive"
+        @click="isActiveMenu = !isActiveMenu"
       >
         <font-awesome-icon :icon="['fa', 'bars']" />
       </button>
@@ -58,11 +53,11 @@
     <nav
       role="menu"
       class="header__links"
-      :class="{ 'header__links--active': isActive }"
+      :class="{ 'header__links--active': isActiveMenu }"
     >
       <button
         class="header__btn-close-menu"
-        @click="isActive = false"
+        @click="isActiveMenu = false"
       >
         <font-awesome-icon :icon="['fa', 'circle-xmark']" />
       </button>
@@ -80,13 +75,6 @@
           </li>
         </router-link>
       </ul>
-      <button
-        class="header__btn-log-out"
-        @click="handleLogOut"
-      >
-        <font-awesome-icon icon="fa-right-from-bracket" />
-        Cerrar sesión
-      </button>
     </nav>
     <div class="header__account">
       <div

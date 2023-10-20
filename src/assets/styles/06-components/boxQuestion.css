@@ -1,0 +1,11 @@
+.box-question {
+  width: 100%;
+  border: 1px solid var(--white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--white);
+  & p {
+    color: var(--pastel-indigo);
+    margin-bottom: 0.5rem;
+  }
+}
