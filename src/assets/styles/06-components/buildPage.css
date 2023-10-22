@@ -1,0 +1,56 @@
+.build-page {
+  padding: 1rem;
+  text-align: center;
+  & p {
+    color: var(--white);
+    font-weight: 600;
+    font-size: 2rem;
+  }
+  & span {
+    color: var(--white);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    display: block;
+    line-height: 2rem;
+  }
+}
+
+@media screen and (min-width: 420px) {
+  .build-page {
+    #build-page-animation {
+      width: 300px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .build-page {
+    #build-page-animation {
+      width: 350px;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .build-page {
+    #build-page-animation {
+      width: 400px;
+    }
+    & p {
+      font-size: 3rem;
+    }
+    & span {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .build-page {
+    #build-page-animation {
+      width: 500px;
+    }
+  }
+}

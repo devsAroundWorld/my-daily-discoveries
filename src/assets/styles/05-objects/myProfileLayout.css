@@ -1,0 +1,38 @@
+.my-profile {
+  padding: 1rem;
+  color: white;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  .my-profile__feed {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    .my-profile__feed-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .my-profile__feed-loading,
+    .my-profile__feed-fallback {
+      text-align: center;
+      font-size: 1.2rem;
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .my-profile {
+    flex-direction: row;
+    & > div {
+      flex: 1;
+    }
+  }
+}
