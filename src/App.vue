@@ -1,13 +1,14 @@
 <script setup lang="ts">
-  import { RouterView, useRouter } from 'vue-router'
+  import { RouterView, useRouter, useRoute } from 'vue-router'
   import { getAuth, onAuthStateChanged } from 'firebase/auth'
   import { app } from '@/plugins/firebase.config'
 
   const auth = getAuth(app)
   const router = useRouter()
+  const route = useRoute()
 
   onAuthStateChanged(auth, (user) => {
-    if (user) {
+    if (route.name === 'landingPage' && user) {
       router.push({ name: 'user' })
     }
   })
