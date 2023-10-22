@@ -31,6 +31,7 @@ export const useFeedStore = defineStore('feed', () => {
   ]
 
   const posts = ref<PostAnswerInterface[]>([])
+  const loadingPost = ref(false)
 
   const sendPost = async (uid: string, payload: PostAnswerInterface) => {
     const userDocRef = doc(db, 'user-feed', uid)
@@ -50,6 +51,7 @@ export const useFeedStore = defineStore('feed', () => {
   }
 
   const getAllPosts = async (uid: string) => {
+    loadingPost.value = true
     posts.value = []
     const docRef = doc(db, 'user-feed', uid)
     const postCollectionRef = collection(docRef, 'feed')
@@ -62,7 +64,9 @@ export const useFeedStore = defineStore('feed', () => {
         }
         posts.value = [...posts.value, payload as PostAnswerInterface]
       })
+      loadingPost.value = false
     } catch (error) {
+      loadingPost.value = false
       toast.error('Problemas al traer los posts')
     }
   }
@@ -88,6 +92,7 @@ export const useFeedStore = defineStore('feed', () => {
     // State
     emotionalQuestions,
     posts,
+    loadingPost,
     // Getters
 
     // Actions

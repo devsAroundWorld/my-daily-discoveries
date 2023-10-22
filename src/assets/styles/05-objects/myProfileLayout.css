@@ -17,6 +17,14 @@
       font-size: 1.6rem;
       font-weight: 600;
     }
+    .my-profile__feed-loading,
+    .my-profile__feed-fallback {
+      text-align: center;
+      font-size: 1.2rem;
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { computed } from 'vue'
   import { storeToRefs } from 'pinia'
   import BoxQuestion from '@/components/feed/BoxQuestion.vue'
   import PostAnswer from '@/components/feed/PostAnswer.vue'
@@ -17,6 +18,8 @@
   }
 
   getAllPosts(userData.value!.uid)
+
+  const hasPosts = computed(() => feedStore.posts.length > 0)
 </script>
 
 <template>
@@ -27,6 +30,12 @@
         Mi Feed personal
       </h2>
       <BoxQuestion @submit="handleSubmit" />
+      <div
+        v-if="feedStore.loadingPost"
+        class="my-profile__feed-loading"
+      >
+        Cargando posts...
+      </div>
       <PostAnswer
         v-for="(post, index) in feedStore.posts"
         :key="post?.postId ?? index"
@@ -34,6 +43,12 @@
         :answer="post.answer"
         @delete-post="deltePost(userData?.uid ?? '', post?.postId ?? '')"
       />
+      <div
+        v-if="!hasPosts && !feedStore.loadingPost"
+        class="my-profile__feed-fallback"
+      >
+        No tienes respuestas en tu feed
+      </div>
     </div>
   </div>
 </template>
