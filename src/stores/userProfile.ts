@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { db } from '@/plugins/firebase.config'
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore'
-import type { UserProfileData } from '@/models/UserProfile'
+import type { UserProfileDataInterface } from '@/models/UserProfile'
 import { toast } from 'vue3-toastify'
 
 const COMMON_TOAST_OPTIONS = {
@@ -12,7 +12,7 @@ const COMMON_TOAST_OPTIONS = {
 }
 
 export const useProfileDataStore = defineStore('userProfile', () => {
-  const userProfileData = ref<UserProfileData | null>()
+  const userProfileData = ref<UserProfileDataInterface | null>()
   
   const getUserProfileData = async (uid: string) => {
     const docRef = doc(db, 'user-profiles', uid)
@@ -39,7 +39,7 @@ export const useProfileDataStore = defineStore('userProfile', () => {
     }
   }
 
-  const updateUserProfileData = async (uid:string, userData: UserProfileData) => {
+  const updateUserProfileData = async (uid:string, userData: UserProfileDataInterface) => {
     const docRef = doc(db, 'user-profiles',uid)
 
     try {

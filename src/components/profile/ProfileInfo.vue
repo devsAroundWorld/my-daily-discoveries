@@ -6,12 +6,14 @@
   import { ref } from 'vue'
   import { computed,onMounted } from 'vue'
   import { useProfileDataStore } from '@/stores/userProfile'
-  import { UserProfileData } from '@/models/UserProfile'
+  import type { UserProfileDataInterface } from '@/models/UserProfile'
+  import { useFeedStore } from '@/stores/feed'
   
   library.add(faPencil)
   const { userData } = useAuthStore()
   const profileStore = useProfileDataStore()
-
+  const feedStore = useFeedStore()
+  
   const { getUserProfileData, updateUserProfileData } = profileStore
   const isEditMode = ref(false)
   
@@ -56,6 +58,8 @@
   const selectedEnjoys = ref()
   const editUserDescription = ref()
   const editableEnjoys = ref()
+  const postsNumber = ref()
+  postsNumber.value = feedStore.posts.length
 
   onMounted(()=>{
     getInformation()
@@ -71,7 +75,7 @@
 
   function saveData(){
     console.log(editableEnjoys.value)
-    const userProfileData: UserProfileData = {
+    const userProfileData: UserProfileDataInterface = {
       userDescription: editUserDescription.value,
       favoriteActivities: editableEnjoys.value
     }
@@ -123,19 +127,20 @@
         >
           {{ userDescription }}
         </p>
+        
         <FormKit
           v-if="isEditMode"
           id="userDescriptionForm"
           v-model="editUserDescription"
           type="textarea"
-          name="instructions"
+          name="description"
           :help="`${editUserDescription ? editUserDescription.length : 0}/120`"
           placeholder="Aqui puedes agregar tu descripción..."
           cols="20"
           validation="length:0,120"
           validation-visibility="live"
           :validation-messages="{
-            length: 'Instructions cannot be more than 120 characters.',
+            length: 'La descripción no puede tener más de 120 caracteres.',
           }"
         />
       </div>
@@ -163,11 +168,12 @@
         v-if="isEditMode"
         type="button"
         label="Guardar"
+        :disabled="editUserDescription.length > 120"
         @click="saveData"
       />
     </div>
     <p class="profile-animation-info">
-      <span>0/10</span> Posts para el siguiente nivel
+      <span>{{ postsNumber }}/10</span> Posts para el siguiente nivel
     </p>
     <div class="profile-animation">
       <label>Nivel 1</label>

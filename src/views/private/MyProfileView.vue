@@ -3,7 +3,7 @@
   import { storeToRefs } from 'pinia'
   import BoxQuestion from '@/components/feed/BoxQuestion.vue'
   import PostAnswer from '@/components/feed/PostAnswer.vue'
-  import ProfileInfo from '@/components/ProfileInfo.vue'
+  import ProfileInfo from '@/components/profile/ProfileInfo.vue'
   import { useFeedStore } from '@/stores/feed'
   import { useAuthStore } from '@/stores/auth'
   import type { PostAnswerInterface } from '@/models/Post'
