@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+  import BuildPage from '@/components/BuildPage.vue'
 </script>
 
 <template>
-  <div>
-    Todo view
+  <div class="todo-view">
+    <BuildPage />
   </div>
 </template>
