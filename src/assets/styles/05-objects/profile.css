@@ -82,6 +82,9 @@
       overflow-wrap: break-word;
     }
 
+    & .profile-info-desc_empty {
+      color: var(--december-sky);
+    }
   }
 
   .profile-animation {
@@ -89,8 +92,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    max-width: 250px;
+    max-width: 190px;
     background-color: var(--light-lavender);
     border-radius: 6px 6px 50% 50%;
 
