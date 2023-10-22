@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { useAuthStore } from '@/stores/auth'
+  import { storeToRefs } from 'pinia'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faUser, faBars, faList, faHouseUser, faRightFromBracket, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -24,7 +25,9 @@
 
   const isActiveMenu = ref(false)
 
-  const { userData, logOut } = useAuthStore()
+  const authStore = useAuthStore()
+  const { logOut } = authStore
+  const { userData } = storeToRefs(authStore)
 
   library.add(
     faUser,
@@ -93,7 +96,7 @@
       </div>
       <img
         v-if="userData?.photo"
-        :src="userData?.photo"
+        :src="userData.photo"
       >
     </div>
   </header>

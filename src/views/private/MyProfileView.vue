@@ -1,6 +1,22 @@
 <script setup lang="ts">
+  import { storeToRefs } from 'pinia'
   import BoxQuestion from '@/components/feed/BoxQuestion.vue'
   import PostAnswer from '@/components/feed/PostAnswer.vue'
+  import { useFeedStore } from '@/stores/feed'
+  import { useAuthStore } from '@/stores/auth'
+  import type { PostAnswerInterface } from '@/models/Post'
+
+  const feedStore = useFeedStore()
+  const { getAllPosts, getQuestion, sendPost, deltePost } = feedStore
+
+  const authStore = useAuthStore()
+  const { userData } = storeToRefs(authStore)
+
+  const handleSubmit = (boxQuestionValue: PostAnswerInterface) => {
+    sendPost(userData.value!.uid, boxQuestionValue)
+  }
+
+  getAllPosts(userData.value!.uid)
 </script>
 
 <template>
@@ -10,14 +26,14 @@
       <h2 class="my-profile__feed-title">
         Mi Feed personal
       </h2>
-      <BoxQuestion />
-      <PostAnswer />
-      <PostAnswer />
-      <PostAnswer />
-      <PostAnswer />
-      <PostAnswer />
-      <PostAnswer />
-      <PostAnswer />
+      <BoxQuestion @submit="handleSubmit" />
+      <PostAnswer
+        v-for="(post, index) in feedStore.posts"
+        :key="post?.postId ?? index"
+        :question="getQuestion(post.questionId)"
+        :answer="post.answer"
+        @delete-post="deltePost(userData?.uid ?? '', post?.postId ?? '')"
+      />
     </div>
   </div>
 </template>

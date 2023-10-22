@@ -1,31 +1,14 @@
 
 <script setup lang="ts">
   import { reactive, onMounted, ref, computed } from 'vue'
+  import { useFeedStore } from '@/stores/feed'
+  import type { PostAnswerInterface } from '@/models/Post'
 
-  const emotionalQuestions = [
-    {
-      id: 1,
-      question: '¿Cuándo fue la última vez que te sentiste profundamente agradecido por algo o alguien?',
-    },
-    {
-      id: 2,
-      question: '¿Qué experiencia te ha hecho sentir más orgulloso de ti mismo en tu vida?',
-    },
-    {
-      id: 3,
-      question: '¿Puedes compartir una ocasión en la que te sentiste abrumado por el miedo? ¿Cómo lo enfrentaste?',
-    },
-    {
-      id: 4,
-      question: '¿Cuál es un recuerdo que te provoque nostalgia? ¿Por qué es significativo para ti?',
-    },
-    {
-      id: 5,
-      question: '¿Has experimentado una pérdida importante en tu vida? ¿Cómo te has sentido y cómo has lidiado con esa pérdida?',
-    },
-  ]
+  const emit = defineEmits(['submit'])
 
-  const boxQuestionValue = reactive({
+  const { emotionalQuestions } = useFeedStore()
+
+  const boxQuestionValue = reactive<PostAnswerInterface>({
     questionId: 0,
     answer: '',
   })
@@ -54,6 +37,7 @@
       type="form"
       :actions="false"
       incomplete-message="Todos los campos son requeridos, completa los campos."
+      @submit="emit('submit', boxQuestionValue)"
     >
       <FormKit
         v-model="boxQuestionValue.answer"

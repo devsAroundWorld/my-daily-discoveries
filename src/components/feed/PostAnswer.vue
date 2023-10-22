@@ -4,10 +4,17 @@
 
   library.add(faTrashAlt)
 
+  const props = withDefaults(defineProps<{
+    question: string
+    answer: string
+  }>(), {
+    question: '',
+    answer: '',
+  })
+
   const emit = defineEmits(['deletePost'])
 
   const handleDeletePost = () => {
-    console.log('delete post')
     emit('deletePost')
   }
 </script>
@@ -23,10 +30,10 @@
       </button>
     </div>
     <p class="post__question">
-      ¿Cuándo fue la última vez que te sentiste profundamente agradecido por algo o alguien?
+      {{ props.question }}
     </p>
     <div class="post__answer">
-      Respuesta colocada en el box question, Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.
+      {{ props.answer }}
     </div>
   </div>
 </template>
