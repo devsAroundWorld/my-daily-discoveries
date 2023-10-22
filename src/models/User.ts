@@ -8,7 +8,7 @@ export interface UserRegisterFieldInterface {
 export interface UserDataInterface {
   userName: string | null
   email: string | null
-  uid: string | null
+  uid: string
   photo: string | null
   phone: string | null
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue'
   import { useAuthStore } from '@/stores/auth'
+  import { storeToRefs } from 'pinia'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faUser, faBars, faList, faHouseUser, faRightFromBracket, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 
@@ -22,14 +23,11 @@
     },
   ]
 
-  const isActive = ref(false)
+  const isActiveMenu = ref(false)
 
-  const { userData, logOut } = useAuthStore()
-
-  const handleLogOut = () => {
-    isActive.value = false
-    logOut()
-  }
+  const authStore = useAuthStore()
+  const { logOut } = authStore
+  const { userData } = storeToRefs(authStore)
 
   library.add(
     faUser,
@@ -46,7 +44,7 @@
     <div class="header__menu">
       <button
         role="button"
-        @click="isActive = !isActive"
+        @click="isActiveMenu = !isActiveMenu"
       >
         <font-awesome-icon :icon="['fa', 'bars']" />
       </button>
@@ -58,11 +56,11 @@
     <nav
       role="menu"
       class="header__links"
-      :class="{ 'header__links--active': isActive }"
+      :class="{ 'header__links--active': isActiveMenu }"
     >
       <button
         class="header__btn-close-menu"
-        @click="isActive = false"
+        @click="isActiveMenu = false"
       >
         <font-awesome-icon :icon="['fa', 'circle-xmark']" />
       </button>
@@ -80,13 +78,6 @@
           </li>
         </router-link>
       </ul>
-      <button
-        class="header__btn-log-out"
-        @click="handleLogOut"
-      >
-        <font-awesome-icon icon="fa-right-from-bracket" />
-        Cerrar sesión
-      </button>
     </nav>
     <div class="header__account">
       <div
@@ -105,7 +96,7 @@
       </div>
       <img
         v-if="userData?.photo"
-        :src="userData?.photo"
+        :src="userData.photo"
       >
     </div>
   </header>

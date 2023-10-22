@@ -1,0 +1,34 @@
+.post {
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  color: var(--black);
+  & .post__actions {
+    display: flex;
+    justify-content: flex-end;
+    & .post__delete-action {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--red);
+      font-size: 1rem;
+      padding: .3rem .6rem;
+      border-radius: 100%;
+      transition: background-color 0.3s ease-in-out;
+      &:hover {
+        background-color: var(--pale-pink);
+      }
+    }
+  }
+  & .post__question {
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  & .post__answer {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+  }
+}
