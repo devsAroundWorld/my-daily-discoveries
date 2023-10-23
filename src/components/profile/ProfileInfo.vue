@@ -10,7 +10,7 @@
   import { ref } from 'vue'
   import { computed,onMounted } from 'vue'
   import { useProfileDataStore } from '@/stores/userProfile'
-  import type { UserProfileDataInterface } from '@/models/UserProfile'
+  import type { UserProfileDataInterface, UserAnimationLvl } from '@/models/UserProfile'
   import { useFeedStore } from '@/stores/feed'
   import { watch } from 'vue'
   import { Vue3Lottie } from 'vue3-lottie'
@@ -61,7 +61,7 @@
       help: ''
     }]
 
-  const animationLevels = [{
+  const animationLevels: UserAnimationLvl[] = [{
     level: 1,
     minRequiredPosts: 0,
     maxRequiredPosts: 5,
@@ -88,7 +88,7 @@
     animationReward: ProPlant,
   }]  
   
-  const currentLevel = ref({
+  const currentLevel = ref<UserAnimationLvl>({
     level: 1,
     minRequiredPosts: 0,
     maxRequiredPosts: 5,
@@ -113,8 +113,12 @@
     })
   }
   
-  watch(() => feedStore.posts.length, (newPostsNum, oldPostsNum) => {
-    currentLevel.value = animationLevels.find((element) => newPostsNum >= element.minRequiredPosts && newPostsNum < element.maxRequiredPosts)
+  watch(() => feedStore.posts.length, (newPostsNum) => {
+    const newLevel = animationLevels.find((element) => newPostsNum >= element.minRequiredPosts && newPostsNum < element.maxRequiredPosts)
+
+    if (newLevel) {
+      currentLevel.value = newLevel
+    }
 
     if(newPostsNum >= 25){
       currentLevel.value = animationLevels[4]
