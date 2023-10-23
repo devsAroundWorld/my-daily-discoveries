@@ -3,6 +3,7 @@
   import { storeToRefs } from 'pinia'
   import BoxQuestion from '@/components/feed/BoxQuestion.vue'
   import PostAnswer from '@/components/feed/PostAnswer.vue'
+  import ProfileInfo from '@/components/profile/ProfileInfo.vue'
   import { useFeedStore } from '@/stores/feed'
   import { useAuthStore } from '@/stores/auth'
   import type { PostAnswerInterface } from '@/models/Post'
@@ -24,11 +25,8 @@
 
 <template>
   <div class="my-profile">
-    <div>Perfil de usuario</div>
+    <div><ProfileInfo /></div>
     <div class="my-profile__feed">
-      <h2 class="my-profile__feed-title">
-        Mi Feed personal
-      </h2>
       <BoxQuestion @submit="handleSubmit" />
       <div
         v-if="feedStore.loadingPost"
