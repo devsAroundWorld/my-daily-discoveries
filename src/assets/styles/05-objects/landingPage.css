@@ -205,24 +205,30 @@ p {
   .title {
     font-size: 32px;
   }
+
   .landing-header {
     flex-direction: column;
+
     & .landing-nav {
       font-size: 12px;
       margin-top: 5px;
       text-align: center;
+
       & a {
         margin: 10px;
         padding: 3px;
       }
     }
   }
+
   .main-container {
     flex-direction: column-reverse;
     padding: 0px;
+
     & .main-text {
       width: 100%;
     }
+
     & .main-animation {
       width: 80%;
     }
@@ -231,11 +237,13 @@ p {
   .landing-stats {
     flex-direction: column-reverse;
     padding: 0px;
+
     & .stats-graph {
       width: 80%;
       margin-top: 2rem;
     }
   }
+
   .about-icons {
     flex-direction: column;
   }

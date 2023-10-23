@@ -36,17 +36,20 @@
     id: 1,
     title: 'Explora sitios',
     description: 'Encuentra nuevas opciones cerca de ti de acuerdo a tus emociones con nuestro mapa interactivo.',
-    iconSource: location
+    iconSource: location,
+    alt: 'Imagen de Explora sitios'
   },{
     id: 2,
     title: 'Escribe tus ideas',
     description: 'Todos los dias tendras un punto de partida para llevar tus pensamientos, sentimientos, metas y preocupaciones a tu espacio personal de Journaling.',
-    iconSource: idea
+    iconSource: idea,
+    alt: 'Imagen de Escribe tus ideas'
   },{
     id: 3,
     title: 'Conoce más sobre ti',
     description: 'Lleva el registro sobre aquellas actividades, series, peliculas que te gustarian realizar o ver.',
-    iconSource: file
+    iconSource: file,
+    alt: 'Imagen de Conoce más sobre ti'
   }]
 
   const mainSection = ref<HTMLElement | null>(null)
@@ -252,7 +255,10 @@
           class="about-icons_container"
         >
           <div style="display: flex; justify-content: center;">
-            <img :src="service.iconSource">
+            <img
+              :src="service.iconSource"
+              :alt="service.alt"
+            >
           </div>
           <span>{{ service.title }}</span>
           <p>{{ service.description }}</p>
