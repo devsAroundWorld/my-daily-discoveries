@@ -115,6 +115,10 @@
   
   watch(() => feedStore.posts.length, (newPostsNum, oldPostsNum) => {
     currentLevel.value = animationLevels.find((element) => newPostsNum >= element.minRequiredPosts && newPostsNum < element.maxRequiredPosts)
+
+    if(newPostsNum >= 25){
+      currentLevel.value = animationLevels[4]
+    }
   })
 
 
