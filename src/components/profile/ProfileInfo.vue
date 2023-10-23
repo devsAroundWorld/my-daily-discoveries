@@ -119,7 +119,6 @@
 
 
   function saveData(){
-    console.log(editableEnjoys.value)
     const userProfileData: UserProfileDataInterface = {
       userDescription: editableUserDescription.value,
       favoriteActivities: editableEnjoys.value
