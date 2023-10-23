@@ -1,0 +1,102 @@
+.medal-container {
+  text-align: center;
+  background-color: var(--light-lavender);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.medal-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  background-color: var(--gentle-purple);
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.medal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.medal-wrapper {
+  display: inline-block;
+  text-align: center;
+}
+
+.medal-bg {
+  background-color: var(--light-lavender);
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.medal {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.medal-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--gentle-purple);
+}
+
+.medal-disabled {
+  filter: grayscale(100%);
+  background-color: var(--pale-pink);
+}
+
+.publications-count {
+  font-size: 18px;
+  background-color: var(--gentle-purple);
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 200;
+  margin-top: 20px;
+}
+
+.medal-explanation {
+  background-color: var(--light-lavender);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.medal-explanation h3 {
+  font-size: 24px;
+  color: var(--gentle-purple);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.medal-explanation p {
+  font-size: 18px;
+  color: var(--black);
+  margin-bottom: 15px;
+  font-weight: 200;
+  line-height: 1.5rem;
+}
+
+.medal-explanation ul {
+  list-style-type: disc;
+  font-size: 16px;
+  color: var(--black);
+  padding-left: 20px;
+}
+
+.medal-explanation li {
+  margin-bottom: 10px;
+}
+
+.medal-explanation li {
+  font-weight: bold;
+  color: var(--pastel-indigo);
+  list-style-type: disclosure-closed;
+}
