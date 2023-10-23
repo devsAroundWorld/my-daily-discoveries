@@ -34,8 +34,8 @@
     return medalImages[index] || ''
   }
 
-  watch(feedStore.posts, () => {
-    userPostsCount.value = feedStore.posts.length
+  watch(() => feedStore.posts.length, (nV) => {
+    userPostsCount.value = nV
 
     const conditions = [5, 10, 15, 20, 25]
 
@@ -49,31 +49,49 @@
     <h2 class="medal-title">
       Medallas de reconocimiento
     </h2>
-    <div
-      v-for="(medal, index) in medalsEnabled"
-      :key="index"
-      class="medal-wrapper"
-    >
+    <div class="medal-body">
       <div
-        class="medal-bg"
-        :class="{ 'medal-disabled': !medal }"
+        v-for="(medal, index) in medalsEnabled"
+        :key="index"
+        class="medal-wrapper"
       >
-        <img
-          :src="getMedalImage(index)"
-          alt="Medalla del usuario"
-          class="medal"
+        <div
+          class="medal-bg"
+          :class="{ 'medal-disabled': !medal }"
         >
+          <img
+            :src="getMedalImage(index)"
+            alt="Medalla del usuario"
+            class="medal"
+          >
+        </div>
+        <p
+          v-if="medal"
+          class="medal-label"
+        >
+          Medalla {{ index + 1 }}
+        </p>
       </div>
-      <p
-        v-if="medal"
-        class="medal-label"
-      >
-        Medalla {{ index + 1 }}
-      </p>
     </div>
     <p class="publications-count">
       Publicaciones: {{ userPostsCount }}
     </p>
+
+    <div class="medal-explanation">
+      <h3>Cómo conseguir medallas</h3>
+      <p>
+        Para conseguir medallas de reconocimiento, necesitas publicar contenido de manera constante.
+        Cada medalla se desbloquea al alcanzar un cierto número de publicaciones en tu feed.
+        Sigue publicando y desbloquea todas las medallas:
+      </p>
+      <ul>
+        <li>Medalla 1: 5 publicaciones</li>
+        <li>Medalla 2: 10 publicaciones</li>
+        <li>Medalla 3: 15 publicaciones</li>
+        <li>Medalla 4: 20 publicaciones</li>
+        <li>Medalla 5: 25 publicaciones</li>
+      </ul>
+    </div>
   </div>
 </template>
 

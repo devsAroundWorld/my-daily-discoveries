@@ -7,7 +7,6 @@
 
 .medal-title {
   font-size: 24px;
-  color: var(--pastel-indigo);
   margin-bottom: 20px;
   background-color: var(--gentle-purple);
   padding: 10px;
@@ -16,9 +15,16 @@
   font-weight: 600;
 }
 
+.medal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .medal-wrapper {
   display: inline-block;
-  margin: 10px;
   text-align: center;
 }
 
@@ -37,7 +43,7 @@
 
 .medal-label {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   color: var(--gentle-purple);
 }
 
@@ -48,10 +54,49 @@
 
 .publications-count {
   font-size: 18px;
-  color: var(--december-sky);
   background-color: var(--gentle-purple);
   padding: 10px;
   border-radius: 5px;
   color: var(--white);
   font-weight: 200;
+  margin-top: 20px;
+}
+
+.medal-explanation {
+  background-color: var(--light-lavender);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.medal-explanation h3 {
+  font-size: 24px;
+  color: var(--gentle-purple);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.medal-explanation p {
+  font-size: 18px;
+  color: var(--black);
+  margin-bottom: 15px;
+  font-weight: 200;
+  line-height: 1.5rem;
+}
+
+.medal-explanation ul {
+  list-style-type: disc;
+  font-size: 16px;
+  color: var(--black);
+  padding-left: 20px;
+}
+
+.medal-explanation li {
+  margin-bottom: 10px;
+}
+
+.medal-explanation li {
+  font-weight: bold;
+  color: var(--pastel-indigo);
+  list-style-type: disclosure-closed;
 }
