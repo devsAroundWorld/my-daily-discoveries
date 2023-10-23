@@ -64,11 +64,11 @@
   const animationLevels = [{
     level: 1,
     minRequiredPosts: 0,
-    maxRequiredPosts: 3,
+    maxRequiredPosts: 10,
     animationReward: InitialPlant
   },{
     level: 2,
-    minRequiredPosts: 3,
+    minRequiredPosts: 10,
     maxRequiredPosts: 20,
     animationReward: BeginnerPlant
   },{
@@ -115,7 +115,6 @@
   
   watch(() => feedStore.posts.length, (newPostsNum, oldPostsNum) => {
     currentLevel.value = animationLevels.find((element) => newPostsNum >= element.minRequiredPosts && newPostsNum < element.maxRequiredPosts)
-    console.log(currentLevel.value)
   })
 
 
