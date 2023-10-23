@@ -22,6 +22,13 @@
   const userPostsCount = ref(0)
 
   const medalsEnabled = ref([false, false, false, false, false])
+  const medalNames = ref([
+    'Medalla de Comenzar',
+    'Medalla de Persistencia',
+    'Medalla de Reflexión',
+    'Medalla de Inspiración',
+    'Medalla de Transformación',
+  ])
 
   const getMedalImage = (index: number) => {
     const medalImages: MedalImages = {
@@ -66,10 +73,9 @@
           >
         </div>
         <p
-          v-if="medal"
           class="medal-label"
         >
-          Medalla {{ index + 1 }}
+          {{ medalNames[index] }}
         </p>
       </div>
     </div>
@@ -85,11 +91,11 @@
         Sigue publicando y desbloquea todas las medallas:
       </p>
       <ul>
-        <li>Medalla 1: 5 publicaciones</li>
-        <li>Medalla 2: 10 publicaciones</li>
-        <li>Medalla 3: 15 publicaciones</li>
-        <li>Medalla 4: 20 publicaciones</li>
-        <li>Medalla 5: 25 publicaciones</li>
+        <li>Medalla de Comenzar: 5 publicaciones</li>
+        <li>Medalla de Persistencia: 10 publicaciones</li>
+        <li>Medalla de Reflexión: 15 publicaciones</li>
+        <li>Medalla de Inspiración: 20 publicaciones</li>
+        <li>Medalla de Transformación: 25 publicaciones</li>
       </ul>
     </div>
   </div>
