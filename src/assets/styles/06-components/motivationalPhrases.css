@@ -1,0 +1,36 @@
+.phrase {
+  text-align: center;
+  padding: 20px;
+  border: 2px solid var(--soft-blue);
+  border-radius: 5px;
+  background-color: var(--light-lavender);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.phrase__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--gentle-purple);
+  font-weight: 600;
+}
+
+.phrase__info {
+  font-size: 18px;
+  font-style: italic;
+  margin: 0;
+  color: var(--pastel-indigo);
+  font-weight: 400;
+}
+
+.phrase__author {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0 0;
+  color: var(--december-sky);
+}
+
+.phrase:hover {
+  background-color: var(--soft-blue);
+  color: var(--white);
+}

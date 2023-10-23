@@ -1,0 +1,57 @@
+.medal-container {
+  text-align: center;
+  background-color: var(--light-lavender);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.medal-title {
+  font-size: 24px;
+  color: var(--pastel-indigo);
+  margin-bottom: 20px;
+  background-color: var(--gentle-purple);
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.medal-wrapper {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+
+.medal-bg {
+  background-color: var(--light-lavender);
+  padding: 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.medal {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.medal-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--gentle-purple);
+}
+
+.medal-disabled {
+  filter: grayscale(100%);
+  background-color: var(--pale-pink);
+}
+
+.publications-count {
+  font-size: 18px;
+  color: var(--december-sky);
+  background-color: var(--gentle-purple);
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--white);
+  font-weight: 200;
+}
