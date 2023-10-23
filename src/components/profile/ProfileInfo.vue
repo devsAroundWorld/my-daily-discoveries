@@ -121,7 +121,6 @@
     }
   })
 
-
   function saveData(){
     const userProfileData: UserProfileDataInterface = {
       userDescription: editableUserDescription.value,
@@ -137,7 +136,6 @@
   function enableEdit(){
     isEditMode.value = !isEditMode.value
   }
-  
   
 </script>
 
