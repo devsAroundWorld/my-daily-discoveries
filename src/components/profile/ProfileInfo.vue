@@ -64,34 +64,34 @@
   const animationLevels = [{
     level: 1,
     minRequiredPosts: 0,
-    maxRequiredPosts: 10,
+    maxRequiredPosts: 5,
     animationReward: InitialPlant
   },{
     level: 2,
-    minRequiredPosts: 10,
-    maxRequiredPosts: 20,
+    minRequiredPosts: 5,
+    maxRequiredPosts: 10,
     animationReward: BeginnerPlant
   },{
     level: 3,
-    minRequiredPosts: 20,
-    maxRequiredPosts: 30,
+    minRequiredPosts: 10,
+    maxRequiredPosts: 15,
     animationReward: MiddlePlant
   },{
     level: 4,
-    minRequiredPosts: 30,
-    maxRequiredPosts: 40,
+    minRequiredPosts: 15,
+    maxRequiredPosts: 20,
     animationReward: AdvancedPlant
   },{
     level: 5,
-    minRequiredPosts: 40,
-    maxRequiredPosts: 100,
+    minRequiredPosts: 20,
+    maxRequiredPosts: 25,
     animationReward: ProPlant,
   }]  
   
   const currentLevel = ref({
     level: 1,
     minRequiredPosts: 0,
-    maxRequiredPosts: 3,
+    maxRequiredPosts: 5,
     animationReward: InitialPlant
   })
   
