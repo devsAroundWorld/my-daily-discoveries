@@ -7,7 +7,7 @@ import { toast } from 'vue3-toastify'
 
 const COMMON_TOAST_OPTIONS = {
   autoClose: 2000,
-  hideProgressBar: true,
+  hideProgressBar: false,
   closeButton: false,
 }
 

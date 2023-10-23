@@ -27,9 +27,6 @@
   <div class="my-profile">
     <div><ProfileInfo /></div>
     <div class="my-profile__feed">
-      <h2 class="my-profile__feed-title">
-        Mi Feed personal
-      </h2>
       <BoxQuestion @submit="handleSubmit" />
       <div
         v-if="feedStore.loadingPost"

@@ -2,12 +2,18 @@
   import { useAuthStore } from '@/stores/auth'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faPencil } from '@fortawesome/free-solid-svg-icons'
-  import InitialPlant from '@/assets/lottie/initial-plant,json.json'
+  import InitialPlant from '@/assets/lottie/initial-plant.json'
+  import BeginnerPlant from '@/assets/lottie/beginner-plant.json'
+  import MiddlePlant from '@/assets/lottie/middle-plant.json'
+  import AdvancedPlant from '@/assets/lottie/advanced-plant.json'
+  import ProPlant from '@/assets/lottie/pro-plant.json'
   import { ref } from 'vue'
   import { computed,onMounted } from 'vue'
   import { useProfileDataStore } from '@/stores/userProfile'
   import type { UserProfileDataInterface } from '@/models/UserProfile'
   import { useFeedStore } from '@/stores/feed'
+  import { watch } from 'vue'
+  import { Vue3Lottie } from 'vue3-lottie'
   
   library.add(faPencil)
   const { userData } = useAuthStore()
@@ -16,7 +22,7 @@
   
   const { getUserProfileData, updateUserProfileData } = profileStore
   const isEditMode = ref(false)
-  
+
   const enjoyOptions = [
     {
       value: 1,
@@ -55,12 +61,46 @@
       help: ''
     }]
 
+  const animationLevels = [{
+    level: 1,
+    minRequiredPosts: 0,
+    maxRequiredPosts: 3,
+    animationReward: InitialPlant
+  },{
+    level: 2,
+    minRequiredPosts: 3,
+    maxRequiredPosts: 20,
+    animationReward: BeginnerPlant
+  },{
+    level: 3,
+    minRequiredPosts: 20,
+    maxRequiredPosts: 30,
+    animationReward: MiddlePlant
+  },{
+    level: 4,
+    minRequiredPosts: 30,
+    maxRequiredPosts: 40,
+    animationReward: AdvancedPlant
+  },{
+    level: 5,
+    minRequiredPosts: 40,
+    maxRequiredPosts: 100,
+    animationReward: ProPlant,
+  }]  
+  
+  const currentLevel = ref({
+    level: 1,
+    minRequiredPosts: 0,
+    maxRequiredPosts: 3,
+    animationReward: InitialPlant
+  })
+  
   const selectedEnjoys = ref()
-  const editUserDescription = ref()
   const editableEnjoys = ref()
-  const postsNumber = ref()
-  postsNumber.value = feedStore.posts.length
 
+  const userDescription = computed(() => !profileStore.userProfileData?.userDescription  ? 'Aqui puedes agregar tu descripción...' : profileStore.userProfileData?.userDescription)
+  const editableUserDescription = ref()
+  
   onMounted(()=>{
     getInformation()
   })
@@ -68,17 +108,24 @@
   function getInformation(){
     getUserProfileData(userData?.uid || '').then(() => {
       selectedEnjoys.value = profileStore.userProfileData?.favoriteActivities
-      editUserDescription.value = profileStore.userProfileData?.userDescription
+      editableUserDescription.value = profileStore.userProfileData?.userDescription
       editableEnjoys.value = profileStore.userProfileData?.favoriteActivities
     })
   }
+  
+  watch(() => feedStore.posts.length, (newPostsNum, oldPostsNum) => {
+    currentLevel.value = animationLevels.find((element) => newPostsNum >= element.minRequiredPosts && newPostsNum < element.maxRequiredPosts)
+    console.log(currentLevel.value)
+  })
+
 
   function saveData(){
     console.log(editableEnjoys.value)
     const userProfileData: UserProfileDataInterface = {
-      userDescription: editUserDescription.value,
+      userDescription: editableUserDescription.value,
       favoriteActivities: editableEnjoys.value
     }
+    
     updateUserProfileData(userData?.uid || '' , userProfileData).then(()=>{
       enableEdit()
       getInformation()
@@ -89,7 +136,6 @@
     isEditMode.value = !isEditMode.value
   }
   
-  const userDescription = computed(() => !profileStore.userProfileData?.userDescription  ? 'Aqui puedes agregar tu descripción...' : profileStore.userProfileData?.userDescription)
   
 </script>
 
@@ -131,10 +177,10 @@
         <FormKit
           v-if="isEditMode"
           id="userDescriptionForm"
-          v-model="editUserDescription"
+          v-model="editableUserDescription"
           type="textarea"
           name="description"
-          :help="`${editUserDescription ? editUserDescription.length : 0}/120`"
+          :help="`${editableUserDescription ? editableUserDescription.length : 0}/120`"
           placeholder="Aqui puedes agregar tu descripción..."
           cols="20"
           validation="length:0,120"
@@ -168,18 +214,39 @@
         v-if="isEditMode"
         type="button"
         label="Guardar"
-        :disabled="editUserDescription.length > 120"
+        :disabled="editableUserDescription.length > 120"
         @click="saveData"
       />
     </div>
     <p class="profile-animation-info">
-      <span>{{ postsNumber }}/10</span> Posts para el siguiente nivel
+      <span>{{ feedStore.posts.length }}/{{ currentLevel.maxRequiredPosts }}</span> Posts para el siguiente nivel
     </p>
     <div class="profile-animation">
-      <label>Nivel 1</label>
+      <label>Nivel {{ currentLevel.level }}</label>
       <Vue3Lottie
+        v-if="currentLevel.level === 1"
         :animation-data="InitialPlant"
-        pause-on-hover
+        :loop="1"
+      />
+      <Vue3Lottie
+        v-if="currentLevel.level === 2"
+        :animation-data="BeginnerPlant"
+        :loop="1"
+      />
+      <Vue3Lottie
+        v-if="currentLevel.level === 3"
+        :animation-data="MiddlePlant"
+        :loop="1"
+      />
+      <Vue3Lottie
+        v-if="currentLevel.level === 4"
+        :animation-data="AdvancedPlant"
+        :loop="1"
+      />
+      <Vue3Lottie
+        v-if="currentLevel.level === 5"
+        :animation-data="AdvancedPlant"
+        :loop="1"
       />
     </div>
   </div>
