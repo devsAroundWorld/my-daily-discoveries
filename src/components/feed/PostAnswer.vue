@@ -37,7 +37,7 @@
     <div class="post__answer">
       {{ props.answer }}
     </div>
-    <p class="post__date" style="">
+    <p class="post__date">
       {{ props.date }}
     </p>
   </div>
