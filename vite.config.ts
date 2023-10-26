@@ -6,6 +6,7 @@ import manifestCustom from './manifest.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     vue(),
     VitePWA({
@@ -22,5 +23,5 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
 })
