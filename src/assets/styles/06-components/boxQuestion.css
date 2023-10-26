@@ -9,4 +9,9 @@
     color: var(--pastel-indigo);
     margin-bottom: 0.5rem;
   }
+
+  .box-question__remaining-tiem {
+    font-size: .8rem;
+    color: var(--december-sky);
+  }
 }
