@@ -249,7 +249,7 @@
       />
       <Vue3Lottie
         v-if="currentLevel.level === 5"
-        :animation-data="AdvancedPlant"
+        :animation-data="ProPlant"
         :loop="1"
       />
     </div>
