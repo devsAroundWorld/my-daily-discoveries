@@ -11,6 +11,7 @@
   const boxQuestionValue = reactive<PostAnswerInterface>({
     questionId: 0,
     answer: '',
+    date: '',
   })
 
   const questionIndex = ref(0)
