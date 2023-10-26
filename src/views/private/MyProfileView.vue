@@ -15,6 +15,7 @@
   const { userData } = storeToRefs(authStore)
 
   const handleSubmit = (boxQuestionValue: PostAnswerInterface) => {
+    boxQuestionValue.date = new Date().toLocaleString()
     sendPost(userData.value!.uid, boxQuestionValue)
   }
 
