@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { db } from '@/plugins/firebase.config'
-import { getDocs, doc, addDoc, collection, deleteDoc } from 'firebase/firestore'
+import { getDocs, doc, addDoc, collection, deleteDoc, query, orderBy } from 'firebase/firestore'
 import { toast } from 'vue3-toastify'
 import { reset } from '@formkit/vue'
 import type { PostAnswerInterface } from '@/models/Post'
@@ -55,8 +55,9 @@ export const useFeedStore = defineStore('feed', () => {
     posts.value = []
     const docRef = doc(db, 'user-feed', uid)
     const postCollectionRef = collection(docRef, 'feed')
+    const postQuery = query(postCollectionRef,orderBy('date', 'desc'))
     try {
-      const querySnapshot = await getDocs(postCollectionRef)
+      const querySnapshot = await getDocs(postQuery)
       querySnapshot.forEach((doc) => {
         const payload = {
           ...doc.data(),

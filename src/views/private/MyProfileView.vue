@@ -15,6 +15,7 @@
   const { userData } = storeToRefs(authStore)
 
   const handleSubmit = (boxQuestionValue: PostAnswerInterface) => {
+    boxQuestionValue.date = new Date().toLocaleString()
     sendPost(userData.value!.uid, boxQuestionValue)
   }
 
@@ -39,6 +40,7 @@
         :key="post?.postId ?? index"
         :question="getQuestion(post.questionId)"
         :answer="post.answer"
+        :date="post.date"
         @delete-post="deltePost(userData?.uid ?? '', post?.postId ?? '')"
       />
       <div

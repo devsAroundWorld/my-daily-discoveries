@@ -7,9 +7,11 @@
   const props = withDefaults(defineProps<{
     question: string
     answer: string
+    date: string
   }>(), {
     question: '',
     answer: '',
+    date:''
   })
 
   const emit = defineEmits(['deletePost'])
@@ -35,6 +37,9 @@
     <div class="post__answer">
       {{ props.answer }}
     </div>
+    <p class="post__date">
+      {{ props.date }}
+    </p>
   </div>
 </template>
 
