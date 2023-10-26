@@ -39,6 +39,7 @@
         :key="post?.postId ?? index"
         :question="getQuestion(post.questionId)"
         :answer="post.answer"
+        :date="post.date"
         @delete-post="deltePost(userData?.uid ?? '', post?.postId ?? '')"
       />
       <div
