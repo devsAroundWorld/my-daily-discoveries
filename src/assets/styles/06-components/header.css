@@ -92,7 +92,7 @@
         background: var(--pastel-indigo);
       }
       & svg {
-        width: fit-content;
+        width: auto;
         color: var(--white);
       }
       & a {
