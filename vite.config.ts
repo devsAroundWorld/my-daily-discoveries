@@ -1,4 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
+import { resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -23,5 +24,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    lib: {
+      entry: [
+        resolve(__dirname, 'src/main.ts'),
+      ],
+      formats: ['es'],
+      fileName: () => 'index.mjs',
+    },
   },
 })
