@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-  import { reactive, onMounted, ref, computed } from 'vue'
+  import { reactive, onMounted, ref, computed, onBeforeUnmount} from 'vue'
   import { useFeedStore } from '@/stores/feed'
   import type { PostAnswerInterface } from '@/models/Post'
 
@@ -15,23 +15,59 @@
   })
 
   const questionIndex = ref(0)
+  const secondsRemaining = ref(600)
+  const intervalId = ref(0)
 
   const currentQuestion = computed(() => emotionalQuestions[questionIndex.value].question)
+
+  const formattedRemainingTime = computed(() => {
+    const minutes = Math.floor(secondsRemaining.value / 60)
+    const seconds = secondsRemaining.value % 60
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+  })
 
   const changeQuestion = () => {
     questionIndex.value = (questionIndex.value + 1) % emotionalQuestions.length
     boxQuestionValue.questionId = emotionalQuestions[questionIndex.value].id
+    secondsRemaining.value = 600
+  }
+
+  const decrementSecondsRemaining = () => {
+    secondsRemaining.value -= 1
+    localStorage.setItem('secondsRemainingState', JSON.stringify(secondsRemaining.value))
+  }
+
+  const setSecondsRemaining = () => {
+    const storedState = localStorage.getItem('secondsRemainingState')
+    if (storedState) {
+      secondsRemaining.value = JSON.parse(storedState)
+    }
+    
+    intervalId.value = setInterval(() => {
+      decrementSecondsRemaining()
+      if (secondsRemaining.value === 0) {
+        changeQuestion()
+      }
+    }, 1000)
   }
 
   onMounted(() => {
     changeQuestion()
-    setInterval(changeQuestion, 1000000)
+
+    setSecondsRemaining()
+  })
+
+  onBeforeUnmount(() => {
+    clearInterval(intervalId.value)
   })
 </script>
 
 <template>
   <div class="box-question">
     <p>{{ currentQuestion }}</p>
+    <p class="box-question__remaining-tiem">
+      Faltan {{ formattedRemainingTime }} minutos para el próximo cambio de pregunta.
+    </p>
     <FormKit
       id="boxQuestionForm"
       v-slot="{ state: { valid } }"
