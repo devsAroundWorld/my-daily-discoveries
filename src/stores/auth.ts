@@ -26,7 +26,7 @@ const COMMON_TOAST_OPTIONS = {
 
 export const useAuthStore = defineStore('auth', () => {
   const userData = ref<UserDataInterface | null>()
-  const authMsg = ref(null)
+  const authMsg = ref<string | null>(null)
   const router = useRouter()
 
   function currentUser () {
@@ -109,19 +109,21 @@ export const useAuthStore = defineStore('auth', () => {
     const { email, password } = data
     try {
       const loginWithEmailAndPassPromise = signInWithEmailAndPassword(auth, email, password)
-      toast.promise(loginWithEmailAndPassPromise, {
-        pending: 'Iniciando sesión',
-        success: 'Inicio de sesión satisfactorio',
-      },{autoClose:false,closeButton: true})
+     
       loginWithEmailAndPassPromise.then((userCredential) =>{
-        console.log(userCredential)
         if(userCredential){
+          authMsg.value = null
           reset('loginFormEmailAndPass')
-          toast.remove('loginToast')
+          router.push({ name: 'user' })
         }
       }).catch((error) => {
-        toast.error('Hubo un error:' + error.message,{autoClose:false,closeButton:true})
-        authMsg.value = error.message
+        if(error.code === 'auth/invalid-login-credentials'){
+          authMsg.value = 'Las credenciales son incorrectas o están vencidas. Por favor, inténtelo de nuevo o más tarde.'
+        } else if(error.code === 'auth/too-many-requests'){
+          authMsg.value = 'Demasiados intentos fallidos. Por favor, intente de nuevo más tarde o restablezca su contraseña'
+        } else {
+          authMsg.value = 'Hubo un error al iniciar sesión.'
+        }
       })
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -136,17 +138,23 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const provider = new GoogleAuthProvider()
       const loginGooglePromise = signInWithPopup(auth, provider)
-      await toast.promise(loginGooglePromise, {
-        pending: 'Iniciando sesión con google',
-        success: 'Inicio de sesión satisfactorio con google',
-      }, {
-        containerId: 'loginToastGoogle',
-        onClose: () => {
-          toast.remove('loginToastGoogle')
-          router.push({ name: 'user' })
-        },
-        ...COMMON_TOAST_OPTIONS,
-      })
+      try{
+        await toast.promise(loginGooglePromise, {
+          pending: 'Iniciando sesión con google',
+          success: 'Inicio de sesión satisfactorio con google',
+        }, {
+          containerId: 'loginToastGoogle',
+          onClose: () => {
+            toast.remove('loginToastGoogle')
+            router.push({ name: 'user' })
+          },
+          ...COMMON_TOAST_OPTIONS,
+        })
+      }catch(error){
+        if(error.code === 'auth/popup-closed-by-user'){
+          setTimeout(() => toast.error('Ventana externa cerrada por el usuario. Intente de nuevo.'), 1000)
+        }
+      }
     } catch (error) {
       if (error instanceof FirebaseError) {
         toast.error(`App Error: ${error.message}`)

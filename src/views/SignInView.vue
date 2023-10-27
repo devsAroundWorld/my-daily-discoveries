@@ -44,7 +44,7 @@
               @suffix-icon-click="handleToggleIconPass"
             />
             <p
-              v-if="authStore.authMsg && !valid"
+              v-if="authStore.authMsg"
               class="auth-msg"
             >
               {{ authStore.authMsg }}
