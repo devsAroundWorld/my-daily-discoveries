@@ -1,22 +1,28 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { phrases } from '@/mockup-data/motivational-phrases.json'
+  import { useDashboardStore } from '@/stores/dashboard'
 
   export interface PhraseInterface {
     id?: number
-    frase?: string
+    phrase?: string
     autor?: string
   }
+
+  const dashboardStore = useDashboardStore()
 
   const currentPhrase = ref<PhraseInterface>({})
 
   const getRandomPhrase = () => {
     currentPhrase.value = phrases[Math.floor(Math.random() * phrases.length)]
+    dashboardStore.$patch((state) => {
+      state.phrase = currentPhrase.value.phrase ?? ''
+    })
   }
 
   onMounted(() => {
     getRandomPhrase()
-    setInterval(getRandomPhrase, 300000)
+    setInterval(getRandomPhrase, 3600000)
   })
 </script>
 
@@ -26,7 +32,7 @@
       Frase del día
     </h1>
     <p class="phrase__info">
-      "{{ currentPhrase.frase }}"
+      "{{ currentPhrase.phrase }}"
     </p>
     <p class="phrase__author">
       - {{ currentPhrase.autor }}
