@@ -19,13 +19,14 @@ import { FirebaseError } from 'firebase/app'
 
 const auth = getAuth()
 const COMMON_TOAST_OPTIONS = {
-  autoClose: 500,
+  autoClose: 1000,
   hideProgressBar: true,
   closeButton: false,
 }
 
 export const useAuthStore = defineStore('auth', () => {
   const userData = ref<UserDataInterface | null>()
+  const authMsg = ref(null)
   const router = useRouter()
 
   function currentUser () {
@@ -108,23 +109,25 @@ export const useAuthStore = defineStore('auth', () => {
     const { email, password } = data
     try {
       const loginWithEmailAndPassPromise = signInWithEmailAndPassword(auth, email, password)
-      await toast.promise(loginWithEmailAndPassPromise, {
-        pending: 'Iniciando sesion',
+      toast.promise(loginWithEmailAndPassPromise, {
+        pending: 'Iniciando sesión',
         success: 'Inicio de sesión satisfactorio',
-      },{
-        containerId: 'loginToast',
-        onClose: () => {
+      },{autoClose:false,closeButton: true})
+      loginWithEmailAndPassPromise.then((userCredential) =>{
+        console.log(userCredential)
+        if(userCredential){
           reset('loginFormEmailAndPass')
           toast.remove('loginToast')
-          router.push({ name: 'user' })
-        },
-        ...COMMON_TOAST_OPTIONS,
+        }
+      }).catch((error) => {
+        toast.error('Hubo un error:' + error.message,{autoClose:false,closeButton:true})
+        authMsg.value = error.message
       })
     } catch (error) {
       if (error instanceof FirebaseError) {
         toast.error(`App Error: ${error.message}`)
       } else {
-        toast.error('Hubo un error al intentar iniciar sesion al usuario. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar iniciar sesión al usuario. Por favor, inténtelo de nuevo o más tarde.')
       }
     }
   }
@@ -134,7 +137,7 @@ export const useAuthStore = defineStore('auth', () => {
       const provider = new GoogleAuthProvider()
       const loginGooglePromise = signInWithPopup(auth, provider)
       await toast.promise(loginGooglePromise, {
-        pending: 'Iniciando sesion con google',
+        pending: 'Iniciando sesión con google',
         success: 'Inicio de sesión satisfactorio con google',
       }, {
         containerId: 'loginToastGoogle',
@@ -148,7 +151,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (error instanceof FirebaseError) {
         toast.error(`App Error: ${error.message}`)
       } else {
-        toast.error('Hubo un error al intentar iniciar sesion con google. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar iniciar sesión con google. Por favor, inténtelo de nuevo o más tarde.')
       }
     }
   }
@@ -157,7 +160,7 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const logOutPromise = signOut(auth)
       await toast.promise(logOutPromise, {
-        pending: 'Cerrando sesion',
+        pending: 'Cerrando sesión',
         success: 'Cierre de sesión satisfactorio',
       }, {
         containerId: 'logoutToast',
@@ -172,7 +175,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (error instanceof FirebaseError) {
         toast.error(`App Error: ${error.message}`)
       } else {
-        toast.error('Hubo un error al intentar cerrar sesion. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar cerrar sesión. Por favor, inténtelo de nuevo o más tarde.')
       }
     }
   }
@@ -180,6 +183,7 @@ export const useAuthStore = defineStore('auth', () => {
   return {
     // State
     userData,
+    authMsg,
     // Getters
     // Actions
     registerUser,
