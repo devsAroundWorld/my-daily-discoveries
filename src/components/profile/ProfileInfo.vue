@@ -86,15 +86,15 @@
     minRequiredPosts: 20,
     maxRequiredPosts: 25,
     animationReward: ProPlant,
-  }]  
-  
+  }]
+
   const currentLevel = ref<UserAnimationLvl>({
     level: 1,
     minRequiredPosts: 0,
     maxRequiredPosts: 5,
     animationReward: InitialPlant
   })
-  
+
   const selectedEnjoys = ref()
   const editableEnjoys = ref()
 
@@ -145,18 +145,21 @@
 
 <template>
   <div class="profile-container">
-    <div class="profile-picture">
-      <img 
-        v-if="userData?.photo" 
-        :src="userData?.photo"
-      >
-      <img
-        v-else
-        src="@/assets/img/LogoMDD.png"
-      >
-    </div>
-    <div class="profile-name">
-      <label>@{{ userData?.userName }}</label>
+    <div class="profile-container__avatar">
+      <div class="profile-picture">
+        <img 
+          v-if="userData?.photo" 
+          :src="userData?.photo"
+        >
+        <img
+          v-else
+          src="@/assets/img/LogoMDD.png"
+        >
+      </div>
+      <div class="profile-name">
+        <p>Este es tu nombre de usuario</p>
+        <label>@{{ userData?.userName }}</label>
+      </div>
     </div>
     <div class="profile-action">
       <button
@@ -222,8 +225,17 @@
         @click="saveData"
       />
     </div>
-    <p class="profile-animation-info">
+    <p
+      v-if="feedStore.posts.length <= 25"
+      class="profile-animation-info"
+    >
       <span>{{ feedStore.posts.length }}/{{ currentLevel.maxRequiredPosts }}</span> Posts para el siguiente nivel
+    </p>
+    <p
+      v-else
+      class="profile-animation-info"
+    >
+      <span>¡Has alcanzado el nivel máximo! ¡Felicidades!</span>
     </p>
     <div class="profile-animation">
       <label>Nivel {{ currentLevel.level }}</label>
@@ -257,5 +269,5 @@
 </template>
 
 <style scoped>
-@import '@/assets/styles/05-objects/profile.css'
+@import '@/assets/styles/06-components/profileInfo.css';
 </style>
