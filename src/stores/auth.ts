@@ -18,11 +18,6 @@ import type { UserRegisterFieldInterface, UserDataInterface, UserLoginFieldInter
 import { FirebaseError } from 'firebase/app'
 
 const auth = getAuth()
-const COMMON_TOAST_OPTIONS = {
-  autoClose: 1000,
-  hideProgressBar: true,
-  closeButton: false,
-}
 
 export const useAuthStore = defineStore('auth', () => {
   const userData = ref<UserDataInterface | null>()
@@ -67,7 +62,10 @@ export const useAuthStore = defineStore('auth', () => {
       const response = await toast.promise(userCredentialPromise, {
         pending: `Registrando usuario ${username}`,
         success: `Usuario ${username} registrado correctamente`,
-      }, { containerId: 'registerToast' })
+      }, {
+        containerId: 'registerToast',
+        theme: 'colored'
+      })
       if (response.user) {
         reset('registerForm')
         await updateProfile(response.user, payload)
@@ -80,10 +78,9 @@ export const useAuthStore = defineStore('auth', () => {
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.error(`App Error: ${error.message}`)
+        toast.error(`App Error: ${error.message}`, { theme: 'colored' })
       } else {
-        console.error('Error al registrar el usuario:', error)
-        toast.error('Hubo un error al intentar registrar al usuario. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar registrar al usuario. Por favor, inténtelo de nuevo o más tarde.', { theme: 'colored' })
       }
     }
   }
@@ -94,72 +91,75 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       await sendPasswordResetEmail(auth, email)
       reset('resetForm')
-      toast.success('Se ha enviado un correo para restablecer su contraseña')
+      toast.success('Se ha enviado un correo para restablecer su contraseña', { theme: 'colored' })
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.error(`App Error: ${error.message}`)
+        toast.error(`App Error: ${error.message}`, { theme: 'colored' })
       } else {
-        console.error('Error al restablecer la contraseña:', error)
-        toast.error('Hubo un error al intentar restablecer la contraseña. Por favor, inténtelo de nuevo más tarde.')
+        toast.error('Hubo un error al intentar restablecer la contraseña. Por favor, inténtelo de nuevo más tarde.', { theme: 'colored' })
       }
     }
   }
 
   const loginWithEmailAndPassword = async (data: UserLoginFieldInterface) => {
     const { email, password } = data
+  
     try {
-      const loginWithEmailAndPassPromise = signInWithEmailAndPassword(auth, email, password)
-     
-      loginWithEmailAndPassPromise.then((userCredential) =>{
-        if(userCredential){
-          authMsg.value = null
-          reset('loginFormEmailAndPass')
-          router.push({ name: 'user' })
-        }
-      }).catch((error) => {
-        if(error.code === 'auth/invalid-login-credentials'){
-          authMsg.value = 'Las credenciales son incorrectas o están vencidas. Por favor, inténtelo de nuevo o más tarde.'
-        } else if(error.code === 'auth/too-many-requests'){
-          authMsg.value = 'Demasiados intentos fallidos. Por favor, intente de nuevo más tarde o restablezca su contraseña'
-        } else {
-          authMsg.value = 'Hubo un error al iniciar sesión.'
-        }
-      })
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+  
+      if (userCredential.user) {
+        reset('loginFormEmailAndPass')
+        authMsg.value = null
+        toast.success('Inicio de sesión satisfactorio', {
+          autoClose: 500,
+          onClose: () => {
+            router.push({ name: 'user' })
+          },
+          theme: 'colored'
+        })
+      }
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.error(`App Error: ${error.message}`)
+        const errorMessages: { [key: string]: string } = {
+          'auth/invalid-login-credentials': 'Las credenciales son incorrectas o están vencidas. Por favor, inténtelo de nuevo o más tarde.',
+          'auth/too-many-requests': 'Demasiados intentos fallidos. Por favor, inténte de nuevo más tarde o restablezca su contraseña',
+        }
+        const errorMessage = errorMessages[error.code]
+        if (errorMessage) {
+          authMsg.value = errorMessage
+        } else {
+          toast.error(`App Error: ${error.message}`, { theme: 'colored' })
+        }
       } else {
-        toast.error('Hubo un error al intentar iniciar sesión al usuario. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar iniciar sesión al usuario. Por favor, inténtelo de nuevo o más tarde.', { theme: 'colored' })
       }
     }
   }
+  
 
   const loginWithGoogle = async () => {
+    const provider = new GoogleAuthProvider()
+
     try {
-      const provider = new GoogleAuthProvider()
-      const loginGooglePromise = signInWithPopup(auth, provider)
-      try{
-        await toast.promise(loginGooglePromise, {
-          pending: 'Iniciando sesión con google',
-          success: 'Inicio de sesión satisfactorio con google',
-        }, {
-          containerId: 'loginToastGoogle',
+      const userCredential = await signInWithPopup(auth, provider)
+      if (userCredential.user) {
+        toast.success('Inicio de sesión satisfactorio con Google', {
+          autoClose: 1200,
           onClose: () => {
-            toast.remove('loginToastGoogle')
             router.push({ name: 'user' })
           },
-          ...COMMON_TOAST_OPTIONS,
+          theme: 'colored'
         })
-      }catch(error){
-        if(error.code === 'auth/popup-closed-by-user'){
-          setTimeout(() => toast.error('Ventana externa cerrada por el usuario. Intente de nuevo.'), 1000)
-        }
       }
-    } catch (error) {
-      if (error instanceof FirebaseError) {
-        toast.error(`App Error: ${error.message}`)
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        if (e.code === 'auth/popup-closed-by-user') {
+          toast.error('Ventana externa cerrada por el usuario. Intente de nuevo.', { theme: 'colored' })
+        } else {
+          toast.error(`App Error: ${e.message}`, { theme: 'colored' })
+        }
       } else {
-        toast.error('Hubo un error al intentar iniciar sesión con google. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar iniciar sesión con Google. Por favor, inténtelo de nuevo o más tarde.', { theme: 'colored' })
       }
     }
   }
@@ -174,16 +174,19 @@ export const useAuthStore = defineStore('auth', () => {
         containerId: 'logoutToast',
         onClose: () => {
           toast.remove('logoutToast')
-          router.push({ name: 'sign-in' })
           userData.value = null
+          router.push({ name: 'sign-in' })
         },
-        ...COMMON_TOAST_OPTIONS,
+        autoClose: 500,
+        hideProgressBar: true,
+        closeButton: false,
+        theme: 'colored'
       })
     } catch (error) {
       if (error instanceof FirebaseError) {
-        toast.error(`App Error: ${error.message}`)
+        toast.error(`App Error: ${error.message}`, { theme: 'colored' })
       } else {
-        toast.error('Hubo un error al intentar cerrar sesión. Por favor, inténtelo de nuevo o más tarde.')
+        toast.error('Hubo un error al intentar cerrar sesión. Por favor, inténtelo de nuevo o más tarde.', { theme: 'colored' })
       }
     }
   }

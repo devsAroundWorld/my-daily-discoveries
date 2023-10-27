@@ -81,16 +81,19 @@
         type="textarea"
         name="answer"
         placeholder="Escribe tu respuesta aquí..."
-        :help="`${boxQuestionValue.answer ? boxQuestionValue.answer.length : 0} / 156`"
+        help="La respuesta debe de tener un minimum de 50 caracteres."
         validation="required|length:0,156"
         :validation-messages="{
           length: 'La respuesta no puede tener más de 156 caracteres.',
         }"
       />
+      <div class="box-question__counter-words">
+        Contador de palabras: {{ `${boxQuestionValue.answer ? boxQuestionValue.answer?.length : 0} / 156` }}
+      </div>
       <FormKit
         type="submit"
         label="Publicar respuesta"
-        :disabled="!valid"
+        :disabled="!(boxQuestionValue.answer?.length >= 50 && valid)"
       />
     </FormKit>
   </div>
