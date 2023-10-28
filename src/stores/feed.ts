@@ -42,11 +42,13 @@ export const useFeedStore = defineStore('feed', () => {
       await toast.promise(docPromise, {
         pending: 'Publicando post',
         success: 'Post publicado con éxito',
+      }, {
+        theme: 'colored'
       })
       reset('boxQuestionForm')
       await getAllPosts(uid)
     } catch (e) {
-      toast.error('No se pudo publicar el post')
+      toast.error('No se pudo publicar el post', { theme: 'colored' })
     }
   }
 
@@ -68,7 +70,7 @@ export const useFeedStore = defineStore('feed', () => {
       loadingPost.value = false
     } catch (error) {
       loadingPost.value = false
-      toast.error('Problemas al traer los posts')
+      toast.error('Problemas al traer los posts', { theme: 'colored' })
     }
   }
 
@@ -80,10 +82,12 @@ export const useFeedStore = defineStore('feed', () => {
       await toast.promise(deletePromise, {
         pending: 'Eliminando post',
         success: 'Post eliminado con éxito',
+      }, {
+        theme: 'colored'
       })
       await getAllPosts(uid)
     } catch (error) {
-      toast.error('No se pudo eliminar el post')
+      toast.error('No se pudo eliminar el post', { theme: 'colored' })
     }
   }
 

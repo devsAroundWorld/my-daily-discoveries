@@ -4,7 +4,8 @@
   import { useAuthStore } from '@/stores/auth'
 
   const { handleToggleIconPass } = useInputPassword()
-  const { loginWithEmailAndPassword, loginWithGoogle } = useAuthStore()
+  const authStore = useAuthStore()
+  const { loginWithEmailAndPassword, loginWithGoogle } = authStore
 </script>
 
 <template>
@@ -42,9 +43,15 @@
               suffix-icon="eyeClosed"
               @suffix-icon-click="handleToggleIconPass"
             />
+            <p
+              v-if="authStore.authMsg"
+              class="auth-msg"
+            >
+              {{ authStore.authMsg }}
+            </p>
             <FormKit
               type="submit"
-              label="Iniciar sesióon"
+              label="Iniciar sesión"
               :disabled="!valid"
             />
           </div>
@@ -80,5 +87,12 @@
   & b {
     color: var(--pastel-indigo);
   }
+}
+
+.auth-msg {
+  margin: 1rem 0;
+  color: var(--red);
+  font-weight: 400;
+  font-style: normal;
 }
 </style>

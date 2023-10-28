@@ -26,7 +26,7 @@
 
 <template>
   <div class="my-profile">
-    <div><ProfileInfo /></div>
+    <ProfileInfo />
     <div class="my-profile__feed">
       <BoxQuestion @submit="handleSubmit" />
       <div

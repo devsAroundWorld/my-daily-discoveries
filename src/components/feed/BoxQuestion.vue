@@ -81,16 +81,17 @@
         type="textarea"
         name="answer"
         placeholder="Escribe tu respuesta aquí..."
-        :help="`${boxQuestionValue.answer ? boxQuestionValue.answer.length : 0} / 156`"
-        validation="required|length:0,156"
+        :help="`${boxQuestionValue.answer ? boxQuestionValue.answer.length: 0}/156`"
+        validation="required|length:50,156"
         :validation-messages="{
-          length: 'La respuesta no puede tener más de 156 caracteres.',
+          length: 'Tu respuesta debe de tener entre 50 a 156 caracteres.',
+          required: 'Tu respuesta es requerida.'
         }"
       />
       <FormKit
         type="submit"
         label="Publicar respuesta"
-        :disabled="!valid"
+        :disabled="!(boxQuestionValue.answer?.length >= 50 && valid)"
       />
     </FormKit>
   </div>
