@@ -4,11 +4,13 @@ import { db } from '@/plugins/firebase.config'
 import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore'
 import type { UserProfileDataInterface } from '@/models/UserProfile'
 import { toast } from 'vue3-toastify'
+import type { ToastOptions } from 'vue3-toastify'
 
-const COMMON_TOAST_OPTIONS = {
+const COMMON_TOAST_OPTIONS: ToastOptions = {
   autoClose: 2000,
   hideProgressBar: false,
   closeButton: false,
+  theme: 'colored'
 }
 
 export const useProfileDataStore = defineStore('userProfile', () => {
@@ -25,7 +27,7 @@ export const useProfileDataStore = defineStore('userProfile', () => {
         favoriteActivities
       }
     } else {
-      console.error('No data found')
+      toast.info('Nuevo usuario. Actualiza tu información',{ ...COMMON_TOAST_OPTIONS })
       const newUserProfileDoc = {
         userDescription: '',
         favoriteActivities: []
@@ -34,7 +36,7 @@ export const useProfileDataStore = defineStore('userProfile', () => {
       try{
         await setDoc(docRef, newUserProfileDoc)
       } catch (err) {
-        console.error('Error al crear el nuevo documento:', err)
+        toast.error(`Error al obtener información de usuario. ${err}`,{ ...COMMON_TOAST_OPTIONS })
       }
     }
   }
@@ -47,11 +49,10 @@ export const useProfileDataStore = defineStore('userProfile', () => {
         userDescription: userData.userDescription,
         favoriteActivities: userData.favoriteActivities
       }).then(()=>{
-        toast.success('Tu información se actualizó correctamente',{...COMMON_TOAST_OPTIONS})
+        toast.success('Tu información se actualizó correctamente',{ ...COMMON_TOAST_OPTIONS })
       })
     } catch (err) {
-      console.error('Error al actualizar la información', err)
-      toast.error('Hubo un error al actualizar tu información. Por favor, inténtelo de nuevo más tarde.')
+      toast.error('Hubo un error al actualizar tu información. Por favor, inténtelo de nuevo más tarde.', { theme: 'colored' })
     } 
   }
 
