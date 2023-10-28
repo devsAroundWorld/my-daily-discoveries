@@ -45,7 +45,7 @@
             type="password"
             name="password"
             label="Contraseña"
-            validation="required|length:0,8"
+            validation="required|length:6,8"
             suffix-icon="eyeClosed"
             @suffix-icon-click="handleToggleIconPass"
           />
@@ -53,7 +53,7 @@
             type="password"
             name="password_confirm"
             label="Confirmar contraseña"
-            validation="required|confirm|length:0,8"
+            validation="required|confirm|length:6,8"
             validation-label="Confirmar contraseña"
             suffix-icon="eyeClosed"
             @suffix-icon-click="handleToggleIconPass"
