@@ -105,6 +105,11 @@ textarea {
   -webkit-user-select: auto;
 }
 
+textarea {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
 /* Evitamos problemas con los SVG */
 svg {
   width: 100%;

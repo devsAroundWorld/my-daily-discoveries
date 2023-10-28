@@ -189,11 +189,10 @@
           name="description"
           :help="`${editableUserDescription ? editableUserDescription.length : 0}/120`"
           placeholder="Aqui puedes agregar tu descripción..."
-          cols="20"
           validation="length:0,120"
           validation-visibility="live"
           :validation-messages="{
-            length: 'La descripción no puede tener más de 120 caracteres.',
+            length: 'Tu descripción no puede tener más de 120 caracteres.',
           }"
         />
       </div>
